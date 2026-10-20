@@ -1,0 +1,3 @@
+{"run": "synthetic", "seq": 0, "type": "run_started", "v": 1}
+{"actor": "researcher", "run": "synthetic", "seq": 1, "step": "researcher-lookup", "type": "step_started", "v": 1}
+{"actor": "researcher", "call": "researcher-call", "run": "synthetic", "seq": 2, "step": "researcher-lookup", "tool": "search", "type": "tool_started", "v": 1}

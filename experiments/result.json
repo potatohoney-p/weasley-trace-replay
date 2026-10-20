@@ -1,0 +1,19 @@
+{
+  "baseline_sha256": "7200cb613e2757f8c85f4aba8cf18aaaac427b1a956c09fdb9d564f3e151381d",
+  "detected_mutations": {
+    "checkpoint_drift": [
+      "/checkpoints/researcher-lookup"
+    ],
+    "tool_failure": [
+      "/tools/researcher-call/status"
+    ],
+    "tool_output_drift": [
+      "/tools/researcher-call/digest"
+    ]
+  },
+  "equivalent_interleavings": 252,
+  "experiment": "two-actor-interleavings-v1",
+  "interrupted_prefixes_recovered": 11,
+  "invalid_duplicate_result_rejected": true,
+  "network_calls": 0
+}
