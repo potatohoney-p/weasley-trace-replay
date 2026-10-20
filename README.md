@@ -35,11 +35,47 @@ the commands above work directly from the checkout without installation.
 - A strict versioned JSONL contract, with contiguous sequence numbers and explicit
   run, actor, step, and call identity. Malformed, mixed, duplicated, or out-of-order
   events cannot silently turn into successes.
-- Deterministic state reconstruction across interrupted runs: replay the valid
-  prefix to inspect pending work, then replay the appended trace. No invented
-  completion, background work, filesystem mutation, or network request occurs.
+- Deterministic incremental state reconstruction and versioned snapshots. Resume
+  replays and verifies the supplied prefix, then appends only new suffix events.
+  No invented completion, background work, tool execution, or network request occurs.
 - Differential testing that tolerates independent actor interleavings while
   locating changes to tool outcomes, checkpoint digests, usage, and terminal state.
+
+## Verified snapshots and incremental replay
+
+```sh
+python -m weasley_trace_replay snapshot examples/interrupted.jsonl > snapshot.json
+# suffix.jsonl must contain only the remaining events, with their original seq.
+python -m weasley_trace_replay resume snapshot.json examples/interrupted.jsonl suffix.jsonl
+```
+
+`snapshot` accepts any nonempty valid prefix, including completed/failed/cancelled
+runs. `resume` requires a terminal result unless `--allow-partial` is supplied.
+Both print JSON to stdout; malformed snapshots and traces use the same content-free
+error and exit 2 as replay. A terminal snapshot accepts an empty suffix only.
+
+```python
+from weasley_trace_replay import ReplayState, read_snapshot, serialize_snapshot, snapshot
+
+saved = snapshot(prefix_events)
+serialized = serialize_snapshot(saved)  # canonical strict snapshot JSON
+cursor = ReplayState.from_snapshot(saved, prefix_events)
+cursor.extend(suffix_events)
+report = cursor.report()                # identical to full replay
+```
+
+The convenience `resume(saved, prefix, suffix, allow_partial=False)` returns that
+same report. `read_snapshot(path)` parses and validates shape, but does not verify
+the recorded history. Verification requires the entire original prefix: its
+version, count, canonical event digest, and every saved state field must agree
+with fresh replay. The reconstructed SHA-256 context then hashes the suffix;
+a saved digest is never used as a hash seed.
+
+This is a verified replay boundary, not constant-time restart or an authenticated
+checkpoint. Prefix replay still costs time; each incremental append stages a
+state copy for atomic rejection. History grows without compaction. Snapshots do
+not restore a real agent process, replay tools, or recover opaque checkpoint data.
+Anyone who can edit both prefix and snapshot can produce a new consistent pair.
 
 ## Design and evidence
 
@@ -53,7 +89,10 @@ oracles, every-prefix cancellation, and failure reduction. It checks 1,068
 interrupted prefixes across 12 schedules, rejects 60 planted invalid traces, and
 detects 48 observational drifts. Injected-bug self-tests verify that the harness
 itself detects regressions. Both experiments measure replay invariants, not agent
-accuracy or performance.
+accuracy or performance. Snapshot tests additionally cover exact full-report
+parity at all 1,080 boundaries (1,068 interrupted and 12 terminal) of those same
+schedules, cancellation snapshots at every interrupted boundary, hostile inputs,
+historical identity reuse, and atomic rejected appends.
 
 Existing Weasley Assistant tracing records runtime-specific JSONL and displays
 it as a timeline. Subagents owns execution and recovery; DeepMind owns durable
@@ -76,5 +115,6 @@ be handled inside a successful step; a failed step cannot end a completed run.
 
 EOF without a final newline is accepted if the last JSON object is complete.
 Torn JSON is rejected even in partial mode. Each input line is bounded, while the
-reconstructed step/tool maps grow with the trace. Incremental persisted cursors
-and bounded-state compaction are future work.
+reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
+16 MiB by default, including in the CLI; library callers may explicitly increase
+`read_snapshot(max_bytes=...)`. Bounded-state compaction remains future work.

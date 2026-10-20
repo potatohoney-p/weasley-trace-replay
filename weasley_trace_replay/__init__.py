@@ -1,5 +1,11 @@
 """Validate and replay traces without executing an agent, tool, or provider."""
 
-from .replay import TraceError, compare, read_events, replay
+from .replay import (
+    ReplayState, TraceError, compare, read_events, read_snapshot, replay,
+    resume, serialize_snapshot, snapshot,
+)
 
-__all__ = ["TraceError", "compare", "read_events", "replay"]
+__all__ = [
+    "ReplayState", "TraceError", "compare", "read_events", "read_snapshot", "replay",
+    "resume", "serialize_snapshot", "snapshot",
+]

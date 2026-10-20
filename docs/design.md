@@ -30,8 +30,8 @@ only successful step statuses. Failed or cancelled runs may retain unfinished
 work, which remains visible in the output. Events after a terminal run fail.
 
 `allow_partial=True` admits EOF in a running state, but does not forgive corrupt
-JSON, duplicate events or impossible transitions. Appending the remaining events
-and replaying from zero is deliberately simple and deterministic. There is no
+JSON, duplicate events or impossible transitions. The compatible `replay()` wrapper builds a `ReplayState`; callers may also append
+events incrementally or resume from a verified snapshot. There is no runtime
 resume executor or hidden tool dispatch.
 
 ## Two comparisons with different purposes
@@ -60,6 +60,57 @@ traces until a reviewed capture adapter and threat model exist.
 
 The implementation uses the Python standard library and stores state in memory.
 This makes the demo reproducible without network access or services. It favors a
-small explicit state machine over a plugin API. Future persisted snapshots must
-bind to the exact canonical prefix hash and contract version before they can be
-trusted; they must not silently skip event validation.
+small explicit state machine over a plugin API. Snapshot verification does not
+skip event validation or claim to restore application state.
+
+
+## Snapshot v1 contract and trust boundary
+
+A snapshot is one JSON object with exactly these fields:
+
+- `format`: `"weasley-replay-snapshot"`.
+- `snapshot_version`: integer 1; `trace_version`: integer 1 (booleans are rejected).
+- `prefix_events`: positive integer count and next required suffix sequence number.
+- `prefix_sha256`: canonical trace SHA-256 for those events, not the source file bytes.
+- `state`: exact `run`, `status`, `steps`, `tools`, `active`, `checkpoints`, and `usage`.
+  The step/tool maps contain completed as well as pending entries. `active` maps
+  actors to running steps. Checkpoints remain ordered lists per step. Usage is
+  aggregate exact integers, including repeated usage events.
+
+The parser rejects unknown fields, duplicate JSON object keys (including identity
+map keys), non-finite numbers, malformed state, unsupported versions, and torn
+JSON. There is no schema migration, implicit repair, pickle, or arbitrary code
+loading. Serialization uses sorted keys and the same compact ASCII JSON policy
+as event hashing, followed by one newline. Snapshot object map insertion order
+and source trace whitespace do not matter; checkpoint list order does.
+
+`ReplayState.from_snapshot(saved, prefix)` first validates the snapshot shape,
+then replays the entire supplied prefix with all normal lifecycle checks. It
+compares the exact canonical snapshot reconstructed by replay, including count,
+digest and every state field. Only that reconstructed state and its live hash
+context are returned. The supplied state is never installed. `resume` then
+appends suffix events without rereading the prefix or renumbering the suffix.
+A saved hexadecimal digest cannot seed Python's SHA-256 continuation state;
+hashing the digest plus suffix would give the wrong trace hash.
+
+This proves consistency with the supplied prefix, not authenticity of the trace,
+its author, or real-world side effects. There is no signature or attestation;
+coordinated edits to both inputs cannot be distinguished from a new valid trace.
+Changing a prefix while keeping the original snapshot is rejected, even if the
+changed events happen to produce the same observations. Snapshots are not a
+substitute for preserving the prefix. Restart is not constant-time: prefix
+verification replays all its events and each append copies accumulated state.
+
+Each `append` is atomic: validation and lifecycle changes happen on a detached
+candidate before state/hash/count are committed. A rejected event leaves the
+cursor reusable and unchanged. `extend` is atomic per event, not per batch; its
+valid earlier events remain after a later event or input iterator fails. A
+failed strict `report()` does not invalidate a partial cursor. Reports and
+snapshots are detached copies. Instances are not thread-safe.
+
+Completed/failed/cancelled snapshots may be restored for reporting, but no new
+event may follow a terminal run. Failed/cancelled runs preserve pending work.
+Historical step and call IDs survive every boundary, so completed IDs cannot be
+reused and a recorded result cannot be accepted twice after restart. Empty
+traces have no snapshot. Large histories remain unbounded in memory; snapshot
+file reads default to a 16 MiB limit, configurable through the library only.

@@ -111,5 +111,8 @@ is implied.
 
 The campaign does not change the public library, CLI, or contract. It does not
 prove the correctness of the oracle itself, exhaust all DAGs, model unrecorded
-side effects, or certify any provider/model. Snapshot persistence, resource
-policies, adapters, and bounded-state replay remain separate roadmap work.
+side effects, or certify any provider/model. Its append-recovery metric still
+means full replay from zero, not snapshot recovery. Separate snapshot regression
+tests reuse these schedules to verify prefix-bound snapshots and suffix append
+at every boundary; see [the snapshot contract](../docs/design.md#snapshot-v1-contract-and-trust-boundary).
+Resource policies, adapters, and bounded-state replay remain roadmap work.
