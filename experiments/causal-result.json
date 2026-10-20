@@ -1,0 +1,53 @@
+{
+  "append_recoveries": 1068,
+  "cancellations": 1068,
+  "cases": [
+    {
+      "actors": 3,
+      "events": 70,
+      "schedule_sha256": [
+        "fe683499e0562679efc17b958a77784667ecf6edb39276313f838c3a08c50f55",
+        "1da62a9e094929ee0d89ae22cd9c49e36d5664dbc07038ce8ac1f014b376b06b",
+        "0e3854d2eac70551d5f7428c5410d03d0b1b77bb6ca98e2361b7fb1d30fc2ac4",
+        "c60635dfb78cf2a32a1e271005b2dfa4a3ef14e30b82cd84e564d8bd72874b1c"
+      ],
+      "seed": 3
+    },
+    {
+      "actors": 4,
+      "events": 92,
+      "schedule_sha256": [
+        "d4111690fd037d7f3d99d129265f56e0a2ac3e3ecd0aeb3593b6392c638d241c",
+        "f86d3b41694e10e38fe596f1d1b55fb76e3eb51fe76842a7e5646396345cb10a",
+        "ce2b8660949b4dcde59862045f2a2cbc7d34360a2a978524492317d1d869d2e7",
+        "bba6d3943e9b7a02f8c9e64250f16e74c279ac845f3c7a916362c1426f07badf"
+      ],
+      "seed": 17
+    },
+    {
+      "actors": 5,
+      "events": 108,
+      "schedule_sha256": [
+        "d3acaede71e4797ed88af9a4d667e7898af044b3993669d7c8ac0a9a2a80e134",
+        "0ffd14eb242078f8b51ff4c7f850033a0ca01820ff8a9e98d0d6c245cac2bcc8",
+        "2fd09b6ce87b2454d63c7df87bde27eebc68c6de4588068811d90213dea5bff8",
+        "e496475fbe9963162bf82cc1331fbbb56a7421bcba80f2ded771d20ce5c2fcf2"
+      ],
+      "seed": 101
+    }
+  ],
+  "drift_cases_detected": 48,
+  "experiment": "causal-lifecycle-v1",
+  "graphs": 3,
+  "incomplete_traces_rejected": 1068,
+  "invalid_cases_rejected": 60,
+  "network_calls": 0,
+  "passed": true,
+  "prefixes": 1068,
+  "schedules": 12,
+  "seeds": [
+    3,
+    17,
+    101
+  ]
+}

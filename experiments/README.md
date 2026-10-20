@@ -18,3 +18,10 @@ This demonstrates a differential oracle for recorded lifecycle evidence. It
 does not establish correctness for arbitrary agent workflows, measure LLM
 quality, or benchmark throughput. A next experiment should generate more actors,
 random valid causal graphs and adversarial prefixes with a fixed recorded seed.
+
+## Seeded causal-graph campaign
+
+See [the independent oracle and failure-reduction design](causal-campaign.md)
+and [the saved deterministic report](causal-result.json). This supplements the
+exhaustive two-actor experiment; it does not replace it or claim exhaustive
+coverage of arbitrary concurrent executions.

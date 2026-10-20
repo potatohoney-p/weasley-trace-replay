@@ -14,6 +14,7 @@ Python 3.11+; no runtime dependencies or API keys.
 ```sh
 python -m unittest discover -s tests -v
 python -m demos.experiment
+python -m demos.causal_campaign
 python -m weasley_trace_replay replay examples/completed.jsonl
 python -m weasley_trace_replay replay examples/interrupted.jsonl --allow-partial
 python -m weasley_trace_replay diff examples/completed.jsonl examples/drift.jsonl
@@ -46,7 +47,13 @@ See [the contract and design rationale](docs/design.md),
 [the reproducible experiment](experiments/README.md), and [roadmap](ROADMAP.md).
 The synthetic experiment exhaustively enumerates all 252 order-preserving
 interleavings of two five-event actors and checks three known output mutations.
-It measures replay invariants, not agent accuracy or performance.
+The seeded [causal campaign](experiments/causal-campaign.md) adds 3–5 actors,
+repeated steps, parallel tools, cross-actor dependencies, independent state
+oracles, every-prefix cancellation, and failure reduction. It checks 1,068
+interrupted prefixes across 12 schedules, rejects 60 planted invalid traces, and
+detects 48 observational drifts. Injected-bug self-tests verify that the harness
+itself detects regressions. Both experiments measure replay invariants, not agent
+accuracy or performance.
 
 Existing Weasley Assistant tracing records runtime-specific JSONL and displays
 it as a timeline. Subagents owns execution and recovery; DeepMind owns durable
