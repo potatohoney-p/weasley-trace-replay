@@ -1,0 +1,12 @@
+{"run": "synthetic", "seq": 0, "type": "run_started", "v": 1}
+{"actor": "researcher", "run": "synthetic", "seq": 1, "step": "researcher-lookup", "type": "step_started", "v": 1}
+{"actor": "researcher", "call": "researcher-call", "run": "synthetic", "seq": 2, "step": "researcher-lookup", "tool": "search", "type": "tool_started", "v": 1}
+{"actor": "researcher", "call": "researcher-call", "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "run": "synthetic", "seq": 3, "status": "ok", "step": "researcher-lookup", "type": "tool_finished", "v": 1}
+{"actor": "researcher", "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "run": "synthetic", "seq": 4, "step": "researcher-lookup", "type": "checkpoint", "v": 1}
+{"actor": "researcher", "run": "synthetic", "seq": 5, "status": "ok", "step": "researcher-lookup", "type": "step_finished", "v": 1}
+{"actor": "reviewer", "run": "synthetic", "seq": 6, "step": "reviewer-lookup", "type": "step_started", "v": 1}
+{"actor": "reviewer", "call": "reviewer-call", "run": "synthetic", "seq": 7, "step": "reviewer-lookup", "tool": "search", "type": "tool_started", "v": 1}
+{"actor": "reviewer", "call": "reviewer-call", "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "run": "synthetic", "seq": 8, "status": "ok", "step": "reviewer-lookup", "type": "tool_finished", "v": 1}
+{"actor": "reviewer", "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "run": "synthetic", "seq": 9, "step": "reviewer-lookup", "type": "checkpoint", "v": 1}
+{"actor": "reviewer", "run": "synthetic", "seq": 10, "status": "ok", "step": "reviewer-lookup", "type": "step_finished", "v": 1}
+{"run": "synthetic", "seq": 11, "status": "completed", "type": "run_finished", "v": 1}
