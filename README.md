@@ -61,9 +61,9 @@ accepted iff `abs(candidate - baseline) <= tolerance`. Unlisted fields remain
 exact; zero permits no difference. There are no percentages, automatic estimates,
 or inferred budgets. Missing or malformed **report usage fields** are rejected,
 never treated as zero. Replay has always initialized aggregate usage to zero:
-a valid trace with no usage events and one with explicit 0/0 usage compare the
-same. This policy cannot detect missing measurement telemetry or prove usage was
-measured; it operates on the recorded aggregate, preserving that legacy behavior.
+by default (report v1), a valid trace with no usage events and one with explicit
+0/0 usage compare the same. Opt-in report v2 distinguishes recorded usage-event
+presence as described below, but does not prove measurements are complete or true.
 Only these token fields can be tolerated: actor/step/call identity, outcomes,
 tool result digests, checkpoints and unfinished work retain exact comparison.
 
@@ -86,6 +86,34 @@ usage difference; choosing it is the caller's responsibility. Acceptance does no
 establish task quality, tokenizer correctness, cost, speed, real runtime behavior,
 or authenticity. The API validates policy and usage, not arbitrary hand-made report
 provenance or the entire report schema; use replay-produced reports.
+
+## Recorded usage-event presence (opt-in report v2)
+
+```sh
+python -m weasley_trace_replay replay examples/interrupted.jsonl --allow-partial --report-version 2
+python -m weasley_trace_replay diff examples/completed.jsonl examples/drift.jsonl --report-version 2
+```
+
+Library callers pass `report_version=2` to `replay`, `resume`, or
+`ReplayState.report`. The v2 report adds `usage_observation` with sorted
+`recorded_steps` and `unrecorded_steps` lists partitioning all started step IDs.
+A step is recorded when at least one valid `usage` event appeared, even if both
+counts were zero. A step without such an event remains unrecorded, including in
+partial, cancelled, or failed traces. No token count is invented or estimated.
+
+Comparison requires matching report versions. V2 compares this partition exactly;
+resource policies cannot tolerate its changes. A zero-usage event removed from
+one step is therefore visible even when aggregate usage is unchanged. The default
+v1 reports and CLI output are unchanged. Both traces omitting usage still compare
+equal: equivalence is not a requirement that measurements exist. Repeated usage
+events on an already recorded step do not change presence (their tokens still
+sum normally). Neither presence nor an empty unrecorded list proves full billing
+coverage, real provider activity, correct tokenization, or authenticity.
+
+Trace events and snapshots remain v1. Presence is not serialized into the v1
+snapshot: verified-prefix resume reconstructs it by replaying the required prefix,
+then updates it from the suffix. Existing snapshots remain usable. This retains
+prefix replay costs and is not constant-time process recovery.
 
 ## Verified snapshots and incremental replay
 
