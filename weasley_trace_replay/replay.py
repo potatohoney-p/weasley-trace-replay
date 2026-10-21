@@ -53,10 +53,20 @@ def _float(value: str) -> float:
     return number
 
 
+def _open_input(path: str | Path):
+    """Normalize malformed filesystem names without hiding ordinary I/O errors."""
+    try:
+        return Path(path).open("rb")
+    except (ValueError, UnicodeError) as exc:
+        # NUL names and names the filesystem cannot encode fail before I/O.
+        # Keep payload/path details out of the public validation message.
+        raise TraceError("invalid input path") from exc
+
+
 def read_events(path: str | Path, *, max_line_bytes: int = 65536) -> Iterator[dict]:
     """Read bounded UTF-8 JSON lines. Blank lines and a torn final line fail closed."""
     _require(type(max_line_bytes) is int and max_line_bytes > 0, "invalid line limit")
-    with Path(path).open("rb") as stream:
+    with _open_input(path) as stream:
         number = 0
         while raw := stream.readline(max_line_bytes + 1):
             number += 1
@@ -333,7 +343,7 @@ def read_snapshot(path: str | Path, *, max_bytes: int = 16 * 1024 * 1024) -> dic
     Increase max_bytes explicitly for larger histories; state is not compacted.
     """
     _require(type(max_bytes) is int and max_bytes > 0, "invalid snapshot size limit")
-    with Path(path).open("rb") as stream:
+    with _open_input(path) as stream:
         raw = stream.read(max_bytes + 1)
     try:
         _require(len(raw) <= max_bytes, "snapshot exceeds size limit")
