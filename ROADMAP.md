@@ -16,6 +16,10 @@
   replays the original prefix, checks exact canonical state/count/hash, and retains
   the reconstructed hash context. Verify full-report parity at every causal
   campaign boundary and atomic rejection with `tests/test_snapshots.py`.
+- Opt-in resource comparison policies with strict versioned JSON, explicit
+  absolute input/output token tolerances, canonical policy digests and visible
+  tolerated differences. Non-usage drift remains exact. Verify boundaries,
+  malformed input, unchanged defaults and CLI behavior with `tests/test_policy.py`.
 
 The product capabilities are validated replay, verified replay snapshots, and
 differential comparison; the causal campaign strengthens their evidence. Individual
@@ -26,9 +30,7 @@ files, tests, examples and commits are not extra capability or repository units.
 1. **Synthetic runtime adapters.** Convert reviewed, synthetic Assistant/Subagents
    events into the contract without importing runtime packages or raw content.
    Document information lost by conversion and fail on ambiguous call identity.
-2. **Resource-aware differential policies.** Explicit token tolerances and allowlists
-   with a machine-readable policy digest; never silently ignore outcome drift.
-3. **Bounded replay state.** Benchmark large synthetic traces and preserve exact
+2. **Bounded replay state.** Benchmark large synthetic traces and preserve exact
    validation across compaction; publish environment and memory measurements.
 
 Snapshots are not constant-time restarts, authenticity/attestation, agent process

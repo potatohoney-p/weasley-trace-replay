@@ -1,5 +1,35 @@
 # Contract v1 and rationale
 
+## Optional resource policy boundary
+
+The v1 event contract and default comparison are unchanged. The opt-in
+`compare_with_policy` API and `diff --policy` accept exactly a version-1 policy
+with `usage_tolerances`, an allowlist containing only `input_tokens` and/or
+`output_tokens`. Limits and report counts must be exact nonnegative integers
+at most 2**53 - 1; booleans and floating-point values are not counts. The reader
+rejects duplicate/unknown keys, nonfinite numbers and files over 64 KiB by default.
+
+A usage difference is tolerated only when its absolute delta is at most that
+field's explicit limit. Equality, missing limits, and zero limits retain exact
+behavior. Missing/extra report usage fields are errors, not defaults. Replay initializes
+aggregate usage to zero even without usage events, so no-usage telemetry and
+explicit 0/0 telemetry remain observationally equal. This feature does not detect
+missing measurements, certify token accounting, or change that legacy behavior.
+All other observations use the original differential oracle unchanged. In particular, the
+policy cannot accept changed outcomes, tool result digests, ownership, checkpoints
+or pending work. Run IDs/event counts/trace hashes were already outside observational
+comparison and remain so; policies do not add any new identity exception.
+
+Results partition the original differences into rejected `changes` and visible
+`tolerated_changes`, retain `exact_equivalent`, and expose policy `equivalent`.
+The digest is SHA-256 of sorted-key compact ASCII JSON without a newline; it
+identifies the exact policy, not its author or any experiment's validity. An empty
+allowlist and an explicit zero limit are distinct policy documents. There is no
+relative tolerance, probabilistic comparison, automatic policy selection, general
+report authentication, or claim of semantic/performance equivalence. Library
+callers must supply replay-produced reports; only policy and usage receive new
+validation, not the full shape/provenance of arbitrary report dictionaries.
+
 Every record has exactly `v: 1`, contiguous `seq` starting at zero, a `run`
 identifier, a `type`, and the fields below. Unknown fields are rejected.
 

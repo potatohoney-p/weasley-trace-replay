@@ -5,6 +5,7 @@ import json
 import sys
 
 from .replay import TraceError, compare, read_events, read_snapshot, replay, resume, snapshot
+from .policy import compare_with_policy, read_policy
 
 
 def main(argv=None) -> int:
@@ -17,6 +18,7 @@ def main(argv=None) -> int:
     diff_parser.add_argument("baseline")
     diff_parser.add_argument("candidate")
     diff_parser.add_argument("--allow-partial", action="store_true")
+    diff_parser.add_argument("--policy", help="strict JSON absolute token tolerance policy")
     snapshot_parser = commands.add_parser("snapshot", help="snapshot a valid nonempty prefix to stdout")
     snapshot_parser.add_argument("prefix")
     resume_parser = commands.add_parser("resume", help="verify the full prefix, then append a suffix")
@@ -34,10 +36,10 @@ def main(argv=None) -> int:
             result = resume(read_snapshot(args.snapshot), read_events(args.prefix),
                             read_events(args.suffix), allow_partial=args.allow_partial)
         else:
-            result = compare(
-                replay(read_events(args.baseline), allow_partial=args.allow_partial),
-                replay(read_events(args.candidate), allow_partial=args.allow_partial),
-            )
+            left = replay(read_events(args.baseline), allow_partial=args.allow_partial)
+            right = replay(read_events(args.candidate), allow_partial=args.allow_partial)
+            result = (compare(left, right) if args.policy is None else
+                      compare_with_policy(left, right, read_policy(args.policy)))
         print(json.dumps(result, sort_keys=True, indent=2))
         return 1 if result.get("equivalent") is False else 0
     except (TraceError, OSError):

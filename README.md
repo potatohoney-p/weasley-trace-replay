@@ -41,6 +41,52 @@ the commands above work directly from the checkout without installation.
 - Differential testing that tolerates independent actor interleavings while
   locating changes to tool outcomes, checkpoint digests, usage, and terminal state.
 
+## Explicit resource comparison policies
+
+Default `compare(left, right)` and `diff` still compare recorded observations
+exactly (apart from run identity/interleaving metadata, as before). Opt into a
+versioned token policy only when your experiment justifies a specific tolerance:
+
+```json
+{"policy_version": 1, "usage_tolerances": {"input_tokens": 8, "output_tokens": 2}}
+```
+
+```sh
+python -m weasley_trace_replay diff baseline.jsonl candidate.jsonl --policy policy.json
+```
+
+`usage_tolerances` is an explicit allowlist of the two aggregate token fields.
+Each nonnegative integer is an **absolute, symmetric** tolerance: a change is
+accepted iff `abs(candidate - baseline) <= tolerance`. Unlisted fields remain
+exact; zero permits no difference. There are no percentages, automatic estimates,
+or inferred budgets. Missing or malformed **report usage fields** are rejected,
+never treated as zero. Replay has always initialized aggregate usage to zero:
+a valid trace with no usage events and one with explicit 0/0 usage compare the
+same. This policy cannot detect missing measurement telemetry or prove usage was
+measured; it operates on the recorded aggregate, preserving that legacy behavior.
+Only these token fields can be tolerated: actor/step/call identity, outcomes,
+tool result digests, checkpoints and unfinished work retain exact comparison.
+
+The policy result separates `exact_equivalent` from policy `equivalent`, includes
+all rejected `changes` and all `tolerated_changes` (with delta and configured
+limit), and records `policy_sha256`. Exit 0 means acceptance under that policy,
+not exact equality or semantic equivalence; exit 1 means remaining drift; exit 2
+means invalid/unreadable input. Errors remain content-free. Policies are strict
+JSON with duplicate/unknown fields rejected and a default 64 KiB reader limit.
+
+Library callers use `compare_with_policy(left, right, policy)` on reports returned
+by replay/resume and `read_policy(path)`. The digest hashes ASCII canonical JSON
+(sorted keys, compact separators, escaped non-ASCII, no trailing newline).
+Key order/whitespace do not affect it. An absent allowlist entry and an explicit
+zero entry have distinct policy digests even though both enforce exactness.
+This digest identifies the supplied policy, not its author or appropriateness.
+
+All examples/tests remain synthetic. A permissive tolerance can accept a large
+usage difference; choosing it is the caller's responsibility. Acceptance does not
+establish task quality, tokenizer correctness, cost, speed, real runtime behavior,
+or authenticity. The API validates policy and usage, not arbitrary hand-made report
+provenance or the entire report schema; use replay-produced reports.
+
 ## Verified snapshots and incremental replay
 
 ```sh
