@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Offline replay and differential testing for content-free agent traces"
 requires-python = ">=3.11"
 dependencies = []
+license = {file = "LICENSE"}
 
 [project.scripts]
 weasley-trace-replay = "weasley_trace_replay.__main__:main"

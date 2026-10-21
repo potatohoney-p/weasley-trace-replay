@@ -4,7 +4,7 @@ Offline lifecycle replay and differential testing for multi-agent traces.
 Reconstruct what completed, failed, or remained unfinished; compare two runs
 without executing a model or repeating a tool side effect.
 
-This is a new private portfolio project. It is not a runtime, benchmark runner,
+This is an offline research toolkit. It is not a runtime, benchmark runner,
 or claim about any model's quality. All included traces are synthetic.
 
 ## Run the working demo
@@ -164,3 +164,7 @@ Torn JSON is rejected even in partial mode. Each input line is bounded, while th
 reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 16 MiB by default, including in the CLI; library callers may explicitly increase
 `read_snapshot(max_bytes=...)`. Bounded-state compaction remains future work.
+
+## License
+
+Licensed under the [MIT License](LICENSE).
