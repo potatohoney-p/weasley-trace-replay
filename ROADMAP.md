@@ -37,6 +37,8 @@ Snapshots are not constant-time restarts, authenticity/attestation, agent proces
 recovery, or opaque checkpoint restoration. Prefix replay and growing history
 remain intentional costs; there is no compaction or imported runtime state.
 
-No provider calls, hosting, public release, or real trace ingestion is part of
-the current minimum. The implementation is proposed through a Draft PR above
-a minimal README bootstrap; it is not merged into the private default branch.
+No provider calls, hosted service, or real trace ingestion is part of the current
+minimum. The implementation was merged through
+[PR #1](https://github.com/potatohoney-p/weasley-trace-replay/pull/1), and the
+repository was made public on 2026-10-21 under the [MIT License](LICENSE).
+Included traces remain synthetic; publication does not establish model quality.
