@@ -26,18 +26,21 @@ def main(argv=None) -> int:
     resume_parser.add_argument("prefix")
     resume_parser.add_argument("suffix")
     resume_parser.add_argument("--allow-partial", action="store_true")
+    for command_parser in (replay_parser, diff_parser, resume_parser):
+        command_parser.add_argument("--report-version", type=int, choices=(1, 2), default=1,
+                                    help="v2 distinguishes unrecorded from recorded zero usage")
     args = parser.parse_args(argv)
     try:
         if args.command == "replay":
-            result = replay(read_events(args.trace), allow_partial=args.allow_partial)
+            result = replay(read_events(args.trace), allow_partial=args.allow_partial, report_version=args.report_version)
         elif args.command == "snapshot":
             result = snapshot(read_events(args.prefix))
         elif args.command == "resume":
             result = resume(read_snapshot(args.snapshot), read_events(args.prefix),
-                            read_events(args.suffix), allow_partial=args.allow_partial)
+                            read_events(args.suffix), allow_partial=args.allow_partial, report_version=args.report_version)
         else:
-            left = replay(read_events(args.baseline), allow_partial=args.allow_partial)
-            right = replay(read_events(args.candidate), allow_partial=args.allow_partial)
+            left = replay(read_events(args.baseline), allow_partial=args.allow_partial, report_version=args.report_version)
+            right = replay(read_events(args.candidate), allow_partial=args.allow_partial, report_version=args.report_version)
             result = (compare(left, right) if args.policy is None else
                       compare_with_policy(left, right, read_policy(args.policy)))
         print(json.dumps(result, sort_keys=True, indent=2))

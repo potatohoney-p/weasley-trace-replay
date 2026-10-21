@@ -13,8 +13,9 @@ A usage difference is tolerated only when its absolute delta is at most that
 field's explicit limit. Equality, missing limits, and zero limits retain exact
 behavior. Missing/extra report usage fields are errors, not defaults. Replay initializes
 aggregate usage to zero even without usage events, so no-usage telemetry and
-explicit 0/0 telemetry remain observationally equal. This feature does not detect
-missing measurements, certify token accounting, or change that legacy behavior.
+explicit 0/0 telemetry remain observationally equal in default report v1. Opt-in
+report v2 also compares per-step usage-event presence, which no token tolerance
+can suppress. This still does not certify measurement completeness or accounting.
 All other observations use the original differential oracle unchanged. In particular, the
 policy cannot accept changed outcomes, tool result digests, ownership, checkpoints
 or pending work. Run IDs/event counts/trace hashes were already outside observational
@@ -144,3 +145,22 @@ Historical step and call IDs survive every boundary, so completed IDs cannot be
 reused and a recorded result cannot be accepted twice after restart. Empty
 traces have no snapshot. Large histories remain unbounded in memory; snapshot
 file reads default to a 16 MiB limit, configurable through the library only.
+
+## Report v2 usage observations
+
+The trace contract and snapshot contract remain v1. Report v2 is explicit via
+`report_version=2`; report v1 remains the default. Its `usage_observation` object
+contains exactly `recorded_steps` and `unrecorded_steps`: sorted unique identifier
+lists whose disjoint union equals the report's step IDs. Validated usage events
+mark their step only after a successful atomic append. Reports are detached.
+
+The partition is rebuilt while verifying old snapshots against their full prefix,
+not inferred from aggregate totals or trusted from serialized state. V2 comparison
+rejects missing/malformed partitions and mixed report versions. A v1 report with
+v2 observation metadata is rejected rather than silently ignoring it. These
+checks do not validate arbitrary report provenance or all report fields.
+
+Presence means at least one event, not complete measurement coverage. Multiple
+zero events and one zero event on the same step have equal presence. No started
+steps produces two empty lists, not a claim that usage was measured. All fixtures
+remain synthetic.
