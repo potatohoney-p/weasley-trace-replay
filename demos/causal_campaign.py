@@ -413,13 +413,23 @@ def main(argv=None) -> int:
     try:
         result = run()
     except CampaignFailure as failure:
+        artifact = {"artifact_status": "not_requested"}
         if args.failure_dir:
-            save_failure(failure, args.failure_dir)
+            try:
+                save_failure(failure, args.failure_dir)
+            except (OSError, ValueError):
+                # Saving is optional: a filesystem failure must not replace the
+                # original gate failure or leak the destination via a traceback.
+                # Malformed paths can raise ValueError before filesystem I/O.
+                artifact = {"artifact_status": "failed",
+                            "artifact_error": "unable_to_save_failure_artifacts"}
+            else:
+                artifact = {"artifact_status": "saved"}
         print(json.dumps({"passed": False, "failure": failure.label,
                           "original_events": failure.original_count, "reduced_events": len(failure.trace),
                           "synthetic_counterexample": failure.trace,
                           "minimality": failure.minimality, "context": failure.context,
-                          "synthetic_baseline": failure.baseline_trace}, sort_keys=True))
+                          "synthetic_baseline": failure.baseline_trace, **artifact}, sort_keys=True))
         return 1
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0
