@@ -1,0 +1,118 @@
+{
+  "acceptance": {
+    "counterfactual_output_drift": {
+      "changes": [
+        {
+          "after": "dab3519aea87b870446c48ab7daa1cd0f6882d5af9cd983b6618ae7c5e944e3b",
+          "before": "bccdc18e7b6ac085553ef044cadec50c310dffd4a86277e0c5c3940aa0e9ce04",
+          "path": "/tools/call_jSwZRs774js2PBliHRee5crf/digest"
+        }
+      ],
+      "equivalent": false
+    },
+    "facts": {
+      "mapped_events": 6,
+      "native_call_id_preserved": "call_jSwZRs774js2PBliHRee5crf",
+      "output_sha256": "bccdc18e7b6ac085553ef044cadec50c310dffd4a86277e0c5c3940aa0e9ce04",
+      "output_utf8_bytes": 19,
+      "source_messages": 6,
+      "sqlite_parity": "not requested",
+      "tool_status": "ok",
+      "usage": "unreported: one assistant message has missing usage",
+      "verified_nonempty_prefixes": 6
+    },
+    "report_sha256": "cee30c835eab8f97cbd9e4b1978a1588274f95f57ab586357d7e4e64fb071dbf",
+    "trace_sha256": "68eeff0cf1934e49e77cc797cac75a15cafb964d6045c0de604752d4b2dc2bc2",
+    "validated_sources": {
+      "demos/tau2_compatibility.py": "7258d3974bec60e1cc6a2a622024d90a82909d5038096677b5aa13a2f66fd500",
+      "examples/tau2/provenance.json": "4a9f12abaf7f61d0ff2b58fba91ee42bb00578231b23efaa7b5117584ab4b749",
+      "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+      "weasley_trace_replay/tau2.py": "0c1ac31706b0eb8be8e704133227ea3ff5718de2a154fc560fe64f0a7be27787"
+    }
+  },
+  "base_commit": "312ef8123da46f4f56e7f323d226de2adb94ced5",
+  "baseline_feature_regression": {
+    "error": "ModuleNotFoundError: weasley_trace_replay.tau2",
+    "purpose": "new capability unavailable before implementation; existing baseline suite passes",
+    "unittest_errors": 1
+  },
+  "environment": {
+    "python": "3.14.5",
+    "sqlite": "3.50.4",
+    "system": "Windows"
+  },
+  "independent_review": {
+    "fixed_findings": [
+      "premature terminal markers",
+      "pinned provenance declarations",
+      "unconditional optional SQLite import"
+    ],
+    "remaining_correctness_findings": 0
+  },
+  "optional_sqlite_base_commit": "5a03c2cfe8a9a6a4440314b1f2583f43fad24798",
+  "other_validation": {
+    "causal_campaign": "passed",
+    "compileall": "passed",
+    "completed_trace_cli": "passed",
+    "exhaustive_interleavings_demo": "passed",
+    "git_diff_check": "passed",
+    "lint": "not configured by repository",
+    "typecheck": "not configured by repository"
+  },
+  "protocol": "tau2-episode-compatibility-v1",
+  "recorded_at_kst": "2026-10-23T01:43:02+09:00",
+  "scope": "One historical adapter capability. No provider calls, benchmark rerun, real-human transfer, agent recovery, or performance claim. CI results are recorded separately on the PR.",
+  "source_verification": {
+    "artifact_bytes": 7599444,
+    "artifact_sha256": "6a3a354c9bce42b52905af096e9cea6f555548acbb17b567fd403c356df7b4ec",
+    "fixture_canonical_sha256": "9fc77bb6ca72f58a42589ffa8bbac89d26fec1b0d0bef53ea2a8ddb523fec636",
+    "full_row_projection_parity": true,
+    "integral_float_normalized_row_sha256": "fb13dfb6654884270c31adcaab51fd30be38a3240e637907c131adfe9684a76f",
+    "omitted_subtrees": 23,
+    "original_row_canonical_sha256": "f8878ea1a9b47309d37b1ea76fa1bbeb3d012e7c2918b6e5e90fd4f821c99e96",
+    "runner_source_reproduced": false,
+    "verified": true
+  },
+  "sqlite_acceptance": {
+    "facts": {
+      "mapped_events": 6,
+      "native_call_id_preserved": "call_jSwZRs774js2PBliHRee5crf",
+      "output_sha256": "bccdc18e7b6ac085553ef044cadec50c310dffd4a86277e0c5c3940aa0e9ce04",
+      "output_utf8_bytes": 19,
+      "source_messages": 6,
+      "sqlite_parity": "passed",
+      "tool_status": "ok",
+      "usage": "unreported: one assistant message has missing usage",
+      "verified_nonempty_prefixes": 6
+    },
+    "fresh_database_prefix_reconstruction": true,
+    "report_and_snapshot_parity_at_every_prefix": true,
+    "validated_sources": {
+      "demos/tau2_compatibility.py": "7258d3974bec60e1cc6a2a622024d90a82909d5038096677b5aa13a2f66fd500",
+      "examples/tau2/provenance.json": "4a9f12abaf7f61d0ff2b58fba91ee42bb00578231b23efaa7b5117584ab4b749",
+      "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+      "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000",
+      "weasley_trace_replay/tau2.py": "0c1ac31706b0eb8be8e704133227ea3ff5718de2a154fc560fe64f0a7be27787"
+    }
+  },
+  "suites": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 86
+    },
+    "adapter_with_pr7": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 117
+    },
+    "base": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 67
+    }
+  }
+}

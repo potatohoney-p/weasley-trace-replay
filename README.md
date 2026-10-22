@@ -5,7 +5,8 @@ Reconstruct what completed, failed, or remained unfinished; compare two runs
 without executing a model or repeating a tool side effect.
 
 This is an offline research toolkit. It is not a runtime, benchmark runner,
-or claim about any model's quality. All included traces are synthetic.
+or claim about any model's quality. Lifecycle demos are synthetic; one reviewed
+historical tau2 benchmark episode supplies an external compatibility fixture.
 
 ## Run the working demo
 
@@ -81,11 +82,34 @@ Key order/whitespace do not affect it. An absent allowlist entry and an explicit
 zero entry have distinct policy digests even though both enforce exactness.
 This digest identifies the supplied policy, not its author or appropriateness.
 
-All examples/tests remain synthetic. A permissive tolerance can accept a large
+The resource-policy examples are synthetic. A permissive tolerance can accept a large
 usage difference; choosing it is the caller's responsibility. Acceptance does not
 establish task quality, tokenizer correctness, cost, speed, real runtime behavior,
 or authenticity. The API validates policy and usage, not arbitrary hand-made report
 provenance or the entire report schema; use replay-produced reports.
+
+## Historical tau2 episode adapter
+
+```sh
+python -m demos.tau2_compatibility
+```
+
+This offline acceptance command maps one pinned historical June 2025 tau2
+episode, checks a literal independent replay oracle, verifies every nonempty
+prefix resume, and detects a counterfactual tool-output change. Native call
+identity and explicit outcome are preserved; exact UTF-8 output text is hashed.
+No tool or provider is executed. The narrow supported profile rejects missing,
+duplicate, orphan or ambiguous calls and unsupported conversation terminals.
+
+Use `weasley_trace_replay.tau2.adapt_episode(read_episode(path))` to obtain events,
+provenance, a loss ledger and derived-field declarations. This first adapter
+does not support arbitrary tau2 episodes. Completion means a supported recorded
+conversation boundary, not task resolution or a verified human transfer.
+Incomplete usage is omitted: replay v1's zero aggregate means **unreported** here.
+Replay alone cannot detect argument-only or final-assistant-text-only changes.
+See the [protocol, source verification and limitations](experiments/tau2-compatibility.md).
+The [minimized fixture and provenance](examples/tau2/provenance.json) are attributed
+to Sierra Research under the [upstream MIT license](examples/tau2/LICENSE).
 
 ## Verified snapshots and incremental replay
 
@@ -148,8 +172,9 @@ oracle. It does not import those runtimes or repackage their code.
 
 ## Limitations
 
-Traces must already use this contract. There is no automatic sanitizer or legacy
-trace importer. Prompt text, tool arguments, raw results, URLs, and free-form
+Replay inputs must use this contract. The narrow historical tau2 adapter above
+is the only external conversion; there is no automatic sanitizer or general
+legacy trace importer. Prompt text, tool arguments, raw results, URLs, and free-form
 metadata are forbidden fields, but identifiers and hashes can still disclose
 information. Review any future real trace before sharing it.
 
