@@ -125,6 +125,13 @@ Anyone who can edit both prefix and snapshot can produce a new consistent pair.
 
 ## Design and evidence
 
+The [scaling evaluator](experiments/scaling.md) measures deterministic histories
+of 130, 514, and 2,050 events in fresh worker processes. It records separate timing
+and Python-allocation samples for replay and verified-prefix resume, gated by an
+independent full-report oracle. Run `python -m demos.scaling` for the documented
+baseline protocol. This is measurement groundwork for bounded-state work; replay
+still retains history, and verified resume still replays its prefix.
+
 See [the contract and design rationale](docs/design.md),
 [the reproducible experiment](experiments/README.md), and [roadmap](ROADMAP.md).
 The synthetic experiment exhaustively enumerates all 252 order-preserving
