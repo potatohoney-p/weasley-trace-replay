@@ -1,0 +1,73 @@
+{
+  "id": "bfaceb85-d727-4de5-b37c-e31fdf90fb39",
+  "task_id": "46",
+  "termination_reason": "user_stop",
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Hi! How can I help you today?",
+      "tool_calls": null,
+      "turn_idx": 0,
+      "usage": null
+    },
+    {
+      "role": "user",
+      "content": "Hi, I\u2019d like some help with my recent booking. I want to get a refund for the insurance I purchased for my flight, but I don\u2019t want to cancel the flight itself. Can you assist me with that?",
+      "tool_calls": null,
+      "turn_idx": 1,
+      "usage": {
+        "completion_tokens": 45,
+        "prompt_tokens": 390
+      }
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "id": "call_jSwZRs774js2PBliHRee5crf",
+          "name": "transfer_to_human_agents",
+          "arguments": {
+            "summary": "User wants to refund insurance only without canceling the flight. Policy does not allow removal of insurance after booking."
+          },
+          "requestor": "assistant"
+        }
+      ],
+      "turn_idx": 2,
+      "usage": {
+        "completion_tokens": 623,
+        "prompt_tokens": 3291
+      }
+    },
+    {
+      "id": "call_jSwZRs774js2PBliHRee5crf",
+      "role": "tool",
+      "content": "Transfer successful",
+      "requestor": "assistant",
+      "error": false,
+      "turn_idx": 3
+    },
+    {
+      "role": "assistant",
+      "content": "YOU ARE BEING TRANSFERRED TO A HUMAN AGENT. PLEASE HOLD ON.",
+      "tool_calls": null,
+      "turn_idx": 4,
+      "usage": {
+        "completion_tokens": 29,
+        "prompt_tokens": 3348
+      }
+    },
+    {
+      "role": "user",
+      "content": "###TRANSFER###",
+      "tool_calls": null,
+      "turn_idx": 5,
+      "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 460
+      }
+    }
+  ],
+  "trial": 0,
+  "seed": 626729
+}
