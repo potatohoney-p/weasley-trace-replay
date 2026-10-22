@@ -41,6 +41,13 @@ the commands above work directly from the checkout without installation.
 - Differential testing that tolerates independent actor interleavings while
   locating changes to tool outcomes, checkpoint digests, usage, and terminal state.
 
+For growing histories, the opt-in library backend
+`weasley_trace_replay.sqlite_history.SQLiteReplayState` keeps exact steps, calls
+and checkpoints in a new SQLite file. Appends avoid growing Python history maps;
+full reports and snapshots still materialize the history. See the
+[API, failure contract and resource protocol](experiments/history-storage.md).
+This does not compact history or resume a runtime process.
+
 ## Explicit resource comparison policies
 
 Default `compare(left, right)` and `diff` still compare recorded observations
