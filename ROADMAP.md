@@ -20,6 +20,11 @@
   absolute input/output token tolerances, canonical policy digests and visible
   tolerated differences. Non-usage drift remains exact. Verify boundaries,
   malformed input, unchanged defaults and CLI behavior with `tests/test_policy.py`.
+- Reproducible replay scaling evaluation with deterministic growing histories,
+  independent full-report validation, separate fresh-process timing/allocation
+  samples, and explicit verified-prefix resume measurements. Verify the protocol
+  with `tests/test_scaling.py`; reproduce the descriptive baseline with
+  `python -m demos.scaling`. See [measurement boundaries](experiments/scaling.md).
 
 The product capabilities are validated replay, verified replay snapshots, and
 differential comparison; the causal campaign strengthens their evidence. Individual
@@ -30,8 +35,10 @@ files, tests, examples and commits are not extra capability or repository units.
 1. **Synthetic runtime adapters.** Convert reviewed, synthetic Assistant/Subagents
    events into the contract without importing runtime packages or raw content.
    Document information lost by conversion and fail on ambiguous call identity.
-2. **Bounded replay state.** Benchmark large synthetic traces and preserve exact
-   validation across compaction; publish environment and memory measurements.
+2. **Bounded replay state.** Use the measured synthetic scaling baseline to
+   evaluate compaction while preserving exact validation and historical identity
+   checks. Publish comparable environment/allocation measurements; the evaluator
+   itself does not bound state or remove prefix-replay costs.
 
 Snapshots are not constant-time restarts, authenticity/attestation, agent process
 recovery, or opaque checkpoint restoration. Prefix replay and growing history
