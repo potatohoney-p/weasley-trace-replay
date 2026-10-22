@@ -25,6 +25,12 @@
   samples, and explicit verified-prefix resume measurements. Verify the protocol
   with `tests/test_scaling.py`; reproduce the descriptive baseline with
   `python -m demos.scaling`. See [measurement boundaries](experiments/scaling.md).
+- Opt-in exact SQLite replay history: preserve historical validation and v1
+  report/snapshot semantics without growing Python history maps during append.
+  Verify independent prefix oracles, differential reconstruction and injected
+  storage failures with `tests/test_sqlite_history.py`; reproduce append and
+  report allocation tradeoffs with `python -m demos.history_storage`. See
+  [ownership and limits](experiments/history-storage.md).
 
 The product capabilities are validated replay, verified replay snapshots, and
 differential comparison; the causal campaign strengthens their evidence. Individual
@@ -35,10 +41,11 @@ files, tests, examples and commits are not extra capability or repository units.
 1. **Synthetic runtime adapters.** Convert reviewed, synthetic Assistant/Subagents
    events into the contract without importing runtime packages or raw content.
    Document information lost by conversion and fail on ambiguous call identity.
-2. **Bounded replay state.** Use the measured synthetic scaling baseline to
-   evaluate compaction while preserving exact validation and historical identity
-   checks. Publish comparable environment/allocation measurements; the evaluator
-   itself does not bound state or remove prefix-replay costs.
+2. **Bounded replay state.** Exact disk-backed history is a first storage option,
+   not compaction or a total-memory bound. Use the measured allocation/storage
+   tradeoffs to evaluate whether a new report/snapshot contract can justify
+   compaction without losing validation or historical identity checks. Full
+   reports/snapshots and verified-prefix reconstruction still grow with history.
 
 Snapshots are not constant-time restarts, authenticity/attestation, agent process
 recovery, or opaque checkpoint restoration. Prefix replay and growing history
