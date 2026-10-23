@@ -77,6 +77,15 @@ behavior. It also states the boundary: different internal sequences that end in
 the same recorded observation can compare equal. Per-step checkpoint ordering
 still matters. Tool IDs must remain stable across candidate implementations.
 
+Comparison evidence is detached from both input reports, including nested
+`before`/`after` maps and checkpoint or unfinished-work lists. Editing returned
+evidence cannot alter a report reused in another comparison; later report edits
+cannot rewrite a captured difference. The same ownership rule applies to
+`compare_with_policy`, which partitions the detached exact differences. Only
+changed observations are copied; comparison fields, paths, ordering and policy
+decisions are unchanged. This is value isolation, not immutable or authenticated
+evidence, and does not make concurrent mutation of inputs safe.
+
 ## Content minimization
 
 The reader accepts bounded UTF-8 lines and rejects duplicate JSON keys and

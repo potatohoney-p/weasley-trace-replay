@@ -346,7 +346,11 @@ def read_snapshot(path: str | Path, *, max_bytes: int = 16 * 1024 * 1024) -> dic
 
 
 def compare(left: dict, right: dict) -> dict:
-    """Compare replay observations, ignoring run identity and interleaving order."""
+    """Compare observations and return evidence detached from both input reports.
+
+    Run identity and interleaving order are ignored. Mutable before/after values
+    belong to the result: later edits on either side cannot rewrite the other.
+    """
     keys = ("status", "steps", "tools", "checkpoints", "usage", "unfinished_steps", "unfinished_tools")
     changes = []
 
@@ -362,4 +366,5 @@ def compare(left: dict, right: dict) -> dict:
 
     for key in keys:
         visit(f"/{key}", left[key], right[key])
-    return {"equivalent": not changes, "changes": changes}
+    # Only changed observations need copying, not the complete report histories.
+    return {"equivalent": not changes, "changes": copy.deepcopy(changes)}
