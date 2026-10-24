@@ -20,6 +20,10 @@
   absolute input/output token tolerances, canonical policy digests and visible
   tolerated differences. Non-usage drift remains exact. Verify boundaries,
   malformed input, unchanged defaults and CLI behavior with `tests/test_policy.py`.
+- Selective in-memory append staging that avoids copying unrelated history while
+  preserving atomic rejection and detached exports. Verify with
+  `tests/test_staging.py`; reproduce the explicitly synthetic usage-only timing
+  experiment in `experiments/append-staging.md`. This is not history compaction.
 
 The product capabilities are validated replay, verified replay snapshots, and
 differential comparison; the causal campaign strengthens their evidence. Individual

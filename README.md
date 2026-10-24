@@ -118,8 +118,10 @@ with fresh replay. The reconstructed SHA-256 context then hashes the suffix;
 a saved digest is never used as a hash seed.
 
 This is a verified replay boundary, not constant-time restart or an authenticated
-checkpoint. Prefix replay still costs time; each incremental append stages a
-state copy for atomic rejection. History grows without compaction. Snapshots do
+checkpoint. Prefix replay still costs time; each incremental append stages only the containers it may mutate for atomic
+rejection. Usage events do not traverse historical steps or tools. History still
+grows without compaction; changed history maps are shallow-copied and some
+transitions still scan history. This is not constant-time or bounded-state replay. Snapshots do
 not restore a real agent process, replay tools, or recover opaque checkpoint data.
 Anyone who can edit both prefix and snapshot can produce a new consistent pair.
 

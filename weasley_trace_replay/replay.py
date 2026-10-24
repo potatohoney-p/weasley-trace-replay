@@ -99,7 +99,7 @@ def _canonical(value: Any) -> bytes:
 class ReplayState:
     """Incremental replay with atomic individual appends, not a runtime executor.
 
-    Reports and snapshots are detached copies. Each append stages a state copy;
+    Reports and snapshots are detached copies. Each append stages affected state;
     rejected events leave the state and hash untouched. An extend failure retains
     its valid earlier events, but never any part of the rejected event. This is
     intentionally not bounded-state replay and is not thread-safe.
@@ -119,7 +119,7 @@ class ReplayState:
         try:
             _validate(event, self._count)
             encoded = _canonical(event)
-            candidate = copy.deepcopy(self._state)
+            candidate = _stage(self._state, event)
             _transition(candidate, event)
             digest = self._digest.copy()
             digest.update(encoded)
@@ -175,6 +175,33 @@ class ReplayState:
         _require(_canonical(restored.snapshot()) == _canonical(saved),
                  "snapshot does not match verified prefix")
         return restored
+
+
+def _stage(state: dict, event: dict) -> dict:
+    """Copy only containers that this transition can mutate.
+
+    Immutable scalar values and untouched history may be shared internally.
+    This private staging view never escapes; reports and snapshots remain deep
+    copies. No container mutated by _transition may alias the committed state.
+    """
+    candidate = state.copy()
+    kind = event["type"]
+    if kind in {"step_started", "step_finished"}:
+        candidate["steps"] = state["steps"].copy()
+        candidate["active"] = state["active"].copy()
+        if kind == "step_finished" and event["step"] in state["steps"]:
+            candidate["steps"][event["step"]] = state["steps"][event["step"]].copy()
+    elif kind in {"tool_started", "tool_finished"}:
+        candidate["tools"] = state["tools"].copy()
+        if kind == "tool_finished" and event["call"] in state["tools"]:
+            candidate["tools"][event["call"]] = state["tools"][event["call"]].copy()
+    elif kind == "checkpoint":
+        candidate["checkpoints"] = state["checkpoints"].copy()
+        if event["step"] in state["checkpoints"]:
+            candidate["checkpoints"][event["step"]] = state["checkpoints"][event["step"]].copy()
+    elif kind == "usage":
+        candidate["usage"] = state["usage"].copy()
+    return candidate
 
 
 def _transition(state: dict, event: dict) -> None:
