@@ -27,9 +27,10 @@ files, tests, examples and commits are not extra capability or repository units.
 
 ## Next priorities
 
-1. **Synthetic runtime adapters.** Convert reviewed, synthetic Assistant/Subagents
-   events into the contract without importing runtime packages or raw content.
-   Document information lost by conversion and fail on ambiguous call identity.
+1. **Synthetic runtime adapters.** Assistant graph lifecycle projection is implemented
+   with explicit source pin, caller run identity, visit/path validation, interruption
+   tests and a loss ledger (see `docs/assistant-adapter.md`). Tool/LLM ingestion is
+   unsupported; never guess call identity. Other runtime adapters remain separate.
 2. **Bounded replay state.** Benchmark large synthetic traces and preserve exact
    validation across compaction; publish environment and memory measurements.
 
