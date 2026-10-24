@@ -168,3 +168,11 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+## Synthetic Subagents adapter
+
+The opt-in `weasley_trace_replay.subagents.adapt_synthetic_subagents` library
+function converts a reviewed synthetic lifecycle/message projection into replay
+events, with explicit losses and derived identities. See the
+[bounded input contract and source pin](docs/subagents-adapter.md). It does not
+accept arbitrary production logs or execute a runtime/provider.

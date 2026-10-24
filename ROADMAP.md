@@ -25,11 +25,15 @@ The product capabilities are validated replay, verified replay snapshots, and
 differential comparison; the causal campaign strengthens their evidence. Individual
 files, tests, examples and commits are not extra capability or repository units.
 
+- Reviewed synthetic Subagents lifecycle/message projection adapter with explicit
+  loss and identity mapping. Verify with `tests/test_subagents_adapter.py`; see
+  `docs/subagents-adapter.md`. No production log ingestion or runtime execution.
+
 ## Next priorities
 
-1. **Synthetic runtime adapters.** Convert reviewed, synthetic Assistant/Subagents
-   events into the contract without importing runtime packages or raw content.
-   Document information lost by conversion and fail on ambiguous call identity.
+1. **Synthetic runtime adapters.** Extend the reviewed Subagents subset only after
+   validating additional runtime semantics; add a separately reviewed Assistant
+   projection. Do not silently infer missing call identities or outcomes.
 2. **Bounded replay state.** Benchmark large synthetic traces and preserve exact
    validation across compaction; publish environment and memory measurements.
 
