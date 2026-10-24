@@ -168,3 +168,11 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+### Synthetic Assistant graph adapter
+
+`weasley_trace_replay.assistant.adapt_synthetic_assistant` converts a reviewed,
+content-minimized graph lifecycle projection into v1 events. It validates node
+visits, concurrent starts, terminal paths and incomplete prefixes without guessing
+tool identities or measurements. See [the source pin, input contract, loss ledger
+and runnable example](docs/assistant-adapter.md). This is not live trace capture.
