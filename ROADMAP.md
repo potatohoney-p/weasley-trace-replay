@@ -54,3 +54,14 @@ remain intentional costs; there is no compaction or imported runtime state.
 No provider calls, hosting, public release, or real trace ingestion is part of
 the current minimum. The implementation is proposed through a Draft PR above
 a minimal README bootstrap; it is not merged into the private default branch.
+
+## Incremental disk-history reporting
+
+The optional SQLite backend now exports individual v1 observations through
+`iter_report` and `replay --report-format jsonl`. This extends the bounded-history
+work beyond append: checkpoints are emitted individually and indexed scans avoid
+full Python report maps. Acceptance: prefix/terminal parity, explicit completion,
+no completion after read/cleanup failure, detached rows, early-close recovery,
+CLI compatibility and scoped export-allocation evidence. Full snapshots and
+legacy reports remain materialized; compaction, stream comparison and real-runtime
+validation remain separate future work.

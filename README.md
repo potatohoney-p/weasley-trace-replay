@@ -182,3 +182,12 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+## Incremental report output
+
+`replay --report-format jsonl` validates into temporary disk history and streams
+individual v1 observations without materializing full report maps. Default JSON
+output remains unchanged. Require exit 0 and the terminal completion record;
+partial output is not a report. The library exposes `SQLiteReplayState.iter_report`.
+See [the transport, cleanup and resource contract](docs/incremental-report.md).
+This does not stream snapshots or add real-agent performance evidence.

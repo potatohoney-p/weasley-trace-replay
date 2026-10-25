@@ -1,0 +1,40 @@
+{
+  "scope": "Synthetic export-only traced Python allocation; not RSS/native memory or timing.",
+  "exclusions": "Input construction, database ingestion, expected-report oracle and warm-up occur before measurement.",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "source_sha256": {
+    "weasley_trace_replay/sqlite_history.py": "b645fae3b7ba090136b69c9b777a9b35b5f3ecd5d4bbc557596c25e6b2029ad2",
+    "demos/incremental_export.py": "2618c0f7f4c14ce7c3bea34ed828ce7f0ae78a93c8e754401cd3b9c0b443b6a4"
+  },
+  "samples": [
+    {
+      "events": 162,
+      "rounds": 10,
+      "full_json_peak_bytes": [
+        42797,
+        41421,
+        41421
+      ],
+      "incremental_jsonl_peak_bytes": [
+        3348,
+        3316,
+        4892
+      ]
+    },
+    {
+      "events": 1602,
+      "rounds": 100,
+      "full_json_peak_bytes": [
+        477128,
+        477072,
+        477072
+      ],
+      "incremental_jsonl_peak_bytes": [
+        5258,
+        3442,
+        3354
+      ]
+    }
+  ]
+}

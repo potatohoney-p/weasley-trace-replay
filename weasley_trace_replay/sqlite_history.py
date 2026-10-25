@@ -1,11 +1,12 @@
-"""Opt-in exact replay history on disk; reports and snapshots still materialize it."""
+"""Opt-in exact disk history, materialized snapshots and incremental reports."""
 
 from __future__ import annotations
 
 import hashlib
 from pathlib import Path
 import sqlite3
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
+from contextlib import closing
 
 from .replay import TraceError, _canonical, _require, _validate, _validate_snapshot
 
@@ -21,7 +22,8 @@ class SQLiteReplayState:
     persisted database, trusts its contents as a snapshot, or executes tools.
     Each event uses a transaction; invalid events roll back. Any storage error
     invalidates the object, including an unacknowledged commit. Full reports and
-    snapshots use O(history) Python memory. Not thread-safe or process recovery.
+    snapshots use O(history) Python memory; iter_report streams observations.
+    Not thread-safe or process recovery.
     """
 
     def __init__(self, path: str | Path) -> None:
@@ -29,6 +31,7 @@ class SQLiteReplayState:
         self._closed = True
         self._digest = hashlib.sha256()
         self._count = 0
+        self._reporting = False
         # Absolute filenames cannot be interpreted as SQLite's ':memory:' name.
         # Do not resolve symlinks: exclusive creation must reject the link itself.
         path = Path(path).absolute()
@@ -54,6 +57,7 @@ class SQLiteReplayState:
                                     tool TEXT NOT NULL, status TEXT NOT NULL, digest TEXT);
                 CREATE INDEX tools_pending ON tools(step) WHERE status = 'running';
                 CREATE TABLE checkpoints (seq INTEGER PRIMARY KEY, step TEXT NOT NULL, digest TEXT NOT NULL);
+                CREATE INDEX checkpoints_step_order ON checkpoints(step, seq);
                 COMMIT;
             """)
             self._closed = False
@@ -94,6 +98,7 @@ class SQLiteReplayState:
     def append(self, event: dict) -> None:
         """Append atomically; a storage failure makes all subsequent reads fail."""
         self._ensure_open()
+        _require(not self._reporting, "cannot append during incremental report; consume or close it first")
         try:
             _validate(event, self._count)
             digest = self._digest.copy()
@@ -213,6 +218,67 @@ class SQLiteReplayState:
                     checkpoints=state["checkpoints"], usage=state["usage"],
                     unfinished_steps=sorted(state["active"].values()),
                     unfinished_tools=sorted(call for call, entry in state["tools"].items() if entry["status"] == "running"))
+
+    def iter_report(self, *, allow_partial: bool = False) -> Iterator[dict]:
+        """Stream detached v1 observations without materializing history maps.
+
+        A single read transaction pins the export. Consume or close the iterator
+        before appending or starting another export. The final complete marker
+        is required; earlier records alone are not a complete report. No snapshot
+        is exported and no existing database is reopened or trusted.
+        """
+        self._ensure_open()
+        _require(not self._reporting, "an incremental report is already active")
+        self._reporting = True
+        transaction = False
+        counts = dict(steps=0, tools=0, checkpoints=0)
+        try:
+            self._db.execute("BEGIN")
+            transaction = True
+            run, status, inputs, outputs = self._one("SELECT * FROM meta")
+            _require(run is not None, "trace is empty")
+            _require(allow_partial or status != "running",
+                     "trace is incomplete; use allow_partial for an interrupted run")
+            yield dict(format="weasley-replay-report-jsonl", format_version=1,
+                       report_version=1, run=run, status=status, events=self._count,
+                       trace_sha256=self._digest.hexdigest(),
+                       usage=dict(input_tokens=inputs, output_tokens=outputs))
+            self._ensure_open()
+            with closing(self._db.execute("SELECT * FROM steps ORDER BY step")) as rows:
+                for step, actor, step_status in rows:
+                    counts["steps"] += 1
+                    yield dict(kind="step", id=step, value=dict(actor=actor, status=step_status))
+                    self._ensure_open()
+            with closing(self._db.execute("SELECT * FROM tools ORDER BY call")) as rows:
+                for call, actor, step, tool, call_status, digest in rows:
+                    value = dict(actor=actor, step=step, tool=tool, status=call_status)
+                    if digest is not None:
+                        value["digest"] = digest
+                    counts["tools"] += 1
+                    yield dict(kind="tool", id=call, value=value)
+                    self._ensure_open()
+            # One checkpoint per event, not one unbounded list per step.
+            with closing(self._db.execute(
+                "SELECT step, digest FROM checkpoints ORDER BY step, seq"
+            )) as rows:
+                for step, digest in rows:
+                    counts["checkpoints"] += 1
+                    yield dict(kind="checkpoint", step=step, digest=digest)
+                    self._ensure_open()
+        except sqlite3.Error as exc:
+            self._invalidate()
+            raise HistoryStorageError("history export failed; rebuild from verified prefix") from exc
+        finally:
+            try:
+                if transaction and not self._closed:
+                    self._db.execute("ROLLBACK")
+            except sqlite3.Error as exc:
+                self._invalidate()
+                raise HistoryStorageError("history export cleanup failed; rebuild from verified prefix") from exc
+            finally:
+                self._reporting = False
+        # Cleanup succeeds before any consumer can observe completion.
+        yield dict(complete=True, counts=counts)
 
     def snapshot(self) -> dict:
         """Materialize the existing snapshot format, including exact history."""
