@@ -168,3 +168,21 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+## Installed distribution validation
+
+CI also builds a wheel and runs `python scripts/check_installed.py dist` on every
+supported OS/Python matrix entry. The checker requires exactly one wheel, creates
+a temporary virtual environment, installs that artifact with `--no-index --no-deps`,
+and runs the installed console entry point outside the checkout with `PYTHONPATH`
+and `PYTHONHOME` removed. An isolated `python -I` import must resolve inside the new
+environment; module and console replay outputs must agree. It covers synthetic
+replay, exact/policy comparison, partial traces, snapshots, verified resume, and
+content-free invalid-input exit codes. This validates distribution wiring, not a
+real runtime, performance result, release publication, or all possible inputs.
+
+To reproduce, build with `python -m pip wheel --no-deps --wheel-dir dist .`, then
+run `python scripts/check_installed.py dist`. Building may fetch the declared
+setuptools build dependency; installation and smoke cases do not fetch packages.
+Use a fresh output directory (or pass one wheel path) rather than selecting an
+arbitrary artifact from a directory containing multiple wheels.
