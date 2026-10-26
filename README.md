@@ -168,3 +168,12 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+## Optional actor-local trace fidelity
+
+`diff --actor-traces` additionally requires exact recorded event sequences per
+actor while ignoring global interleaving and run identity. This can detect local
+call-order changes that intentionally compare equal under the default observation
+oracle. It is stricter even for overlapping calls and usage segmentation, not a
+causal or semantic equivalence claim. It cannot be combined with `--policy`.
+See [the contract and synthetic examples](docs/actor-traces.md).

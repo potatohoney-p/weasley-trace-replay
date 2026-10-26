@@ -40,3 +40,11 @@ remain intentional costs; there is no compaction or imported runtime state.
 No provider calls, hosting, public release, or real trace ingestion is part of
 the current minimum. The implementation is proposed through a Draft PR above
 a minimal README bootstrap; it is not merged into the private default branch.
+
+## Opt-in actor-local fidelity
+
+Require both existing observation equality and equal canonical actor-local event
+projections, without changing default comparison. Acceptance: a valid same-actor
+call reorder is visible; all order-preserving cross-actor interleavings remain
+equivalent; invalid/partial inputs and policy incompatibility are explicit.
+This detects recorded local trace drift, not cross-actor causal or semantic drift.
