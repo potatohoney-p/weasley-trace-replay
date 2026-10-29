@@ -43,7 +43,7 @@ checkpoint digests to each step's list, copying the header observations, and
 setting `version` to `report_version`. `unfinished_steps` and `unfinished_tools`
 are the sorted IDs whose values have `status: "running"`. No observation is
 omitted, but reconstructing the full report again costs history-sized memory.
-There is no new public reader or arbitrary-report validator in this increment.
+The strict v1 materializing consumer described below implements these transport checks.
 
 Consumers must validate supported header versions, record order/shapes, unique
 step/tool IDs, checkpoint ownership, exact counts and a single terminal with no
@@ -91,3 +91,39 @@ warm-up are excluded. It serializes and discards outputs, measuring neither RSS,
 native SQLite allocation, ingestion cost nor timing. Recorded local samples are
 in `experiments/incremental-export-result.json`; they are observations for that
 source/environment, not portable performance guarantees.
+
+## Strict materializing consumer (v1)
+
+`read_report(path, max_line_bytes=65536, max_records=100_000)` reads a saved v1
+transport. `materialize_report(records, max_records=100_000)` accepts a caller-owned
+single-pass iterable of decoded records. Both return a detached ordinary v1 report
+only after consuming the entire input, observing one terminal, and validating
+header versions, exact shapes, section/ID order, unique step/tool IDs, checkpoint
+ownership, counts, status/owner consistency and no trailing records. The file
+reader also rejects duplicate JSON keys, non-finite numbers and oversized lines.
+The record limit includes the header and terminal; raise it explicitly when needed.
+
+```python
+from weasley_trace_replay import read_report, compare
+left = read_report("baseline-report.jsonl")
+right = read_report("candidate-report.jsonl")
+print(compare(left, right))
+```
+
+This **materializes O(history) memory** and is not streaming comparison. Individual
+record and record-count caps do not impose a total-process memory limit. The decoded
+iterable API has no byte-size limit and leaves iterator cleanup to its caller;
+the file API closes its own reader on every path. A source exception even after the
+terminal prevents a successful return. Failed/cancelled or intentionally partial
+running observations are preserved; report completion does not mean run success.
+
+Validation proves transport shape and consistency, **not that these observations
+occurred**, the claimed event count/hash matches a trace, or that the producer
+exited successfully. Verify original events separately when provenance matters.
+Unsupported v2 transport fails closed rather than silently losing usage-presence
+metadata. The separate v2 exporter proposal does not imply v2 reader support.
+
+Tests: `python -m unittest discover -s tests -p test_report_reader.py -v` covers
+all prefixes against independent in-memory replay, malformed/truncated/trailing
+records, duplicate/reordered IDs, ownership, explicit caps, source failures,
+file decoding and detached result ownership. Existing v1 producers are unchanged.

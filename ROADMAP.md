@@ -102,3 +102,11 @@ projections, without changing default comparison. Acceptance: a valid same-actor
 call reorder is visible; all order-preserving cross-actor interleavings remain
 equivalent; invalid/partial inputs and policy incompatibility are explicit.
 This detects recorded local trace drift, not cross-actor causal or semantic drift.
+
+## Strict report consumer
+
+The v1 incremental transport now has an opt-in materializing reader. Acceptance:
+roundtrip every prefix against independent replay; reject truncated/trailing output,
+invalid ordering/ownership/counts and duplicate JSON keys; enforce explicit line and
+record caps. This is transport consistency only, not trace verification, v2 support,
+stream comparison or bounded-memory reconstruction. See docs/incremental-report.md.
