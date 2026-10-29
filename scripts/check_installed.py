@@ -93,6 +93,15 @@ def check(wheel: Path) -> dict:
         saved = cli("snapshot", ["snapshot", prefix])
         (working / "saved.json").write_text(json.dumps(saved), encoding="utf-8")
         assert cli("verified resume", ["resume", "saved.json", prefix, suffix]) == report
+        for source, expected_recorded in ((events, True), ([e for e in events if e["type"] != "usage"], False)):
+            source = [{**event, "seq": seq} for seq, event in enumerate(source)]
+            name = write("presence.jsonl", source)
+            streamed = execute([str(command), "replay", name, "--report-format", "jsonl", "--report-version", "2"])
+            rows = [json.loads(line) for line in streamed.stdout.splitlines()]
+            assert not streamed.stderr and rows[0]["format_version"] == 2 and rows[0]["report_version"] == 2
+            assert rows[-1] == {"complete": True, "counts": {"steps": 1, "tools": 0, "checkpoints": 0}}
+            assert rows[1]["usage_recorded"] is expected_recorded
+            cases.append("stream v2 " + ("recorded usage" if expected_recorded else "missing usage"))
         secret = "SYNTHETIC_REJECTION_SENTINEL"
         malformed = write("malformed.jsonl", [{"private": secret}])
         for name, args in [("malformed rejection", ["replay", malformed]),
