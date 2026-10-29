@@ -32,7 +32,6 @@ class BacklogCompositionTests(unittest.TestCase):
 
     def test_v1_only_modes_reject_v2_before_reading_inputs(self):
         cases = [
-            ['replay', 'private-path', '--report-format', 'jsonl', '--report-version', '2'],
             ['diff', 'private-path', 'other-path', '--actor-traces', '--report-version', '2'],
         ]
         for args in cases:

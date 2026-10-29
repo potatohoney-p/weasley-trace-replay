@@ -40,15 +40,13 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "replay" and args.report_format == "jsonl":
-            if args.report_version != 1:
-                raise TraceError("incremental reports support only report version 1")
             # Default commands do not import or initialize SQLite.
             from .sqlite_history import HistoryStorageError, SQLiteReplayState
             try:
                 with tempfile.TemporaryDirectory(prefix="weasley-replay-") as directory:
                     with SQLiteReplayState(Path(directory) / "history.sqlite") as state:
                         state.extend(read_events(args.trace))
-                        stream = state.iter_report(allow_partial=args.allow_partial)
+                        stream = state.iter_report(allow_partial=args.allow_partial, report_version=args.report_version)
                         try:
                             for record in stream:
                                 if record.get("complete") is True:

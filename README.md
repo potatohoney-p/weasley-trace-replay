@@ -279,8 +279,10 @@ individual v1 observations without materializing full report maps. Default JSON
 output remains unchanged. Require exit 0 and the terminal completion record;
 partial output is not a report. The library exposes `SQLiteReplayState.iter_report`.
 See [the transport, cleanup and resource contract](docs/incremental-report.md).
-This does not stream snapshots or add real-agent performance evidence. Combining
-`--report-format jsonl` with `--report-version 2` is rejected with exit 2.
+This does not stream snapshots or add real-agent performance evidence. Add
+`--report-version 2` to retain the distinction between missing usage and recorded
+zero usage. The opt-in v2 stream marks presence on each step without accumulating
+history-sized arrays in its header; v1 output remains unchanged.
 
 ## Optional actor-local trace fidelity
 

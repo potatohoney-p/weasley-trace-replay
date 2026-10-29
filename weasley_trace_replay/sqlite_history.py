@@ -8,7 +8,7 @@ import sqlite3
 from collections.abc import Iterable, Iterator
 from contextlib import closing
 
-from .replay import TraceError, _canonical, _require, _validate, _validate_snapshot
+from .replay import TraceError, _canonical, _require, _validate, _validate_snapshot, _report_version
 
 
 class HistoryStorageError(RuntimeError):
@@ -53,6 +53,7 @@ class SQLiteReplayState:
                 CREATE TABLE steps (step TEXT PRIMARY KEY, actor TEXT NOT NULL, status TEXT NOT NULL);
                 CREATE INDEX steps_active ON steps(actor) WHERE status = 'running';
                 CREATE INDEX steps_status ON steps(status);
+                CREATE TABLE usage_steps (step TEXT PRIMARY KEY);
                 CREATE TABLE tools (call TEXT PRIMARY KEY, actor TEXT NOT NULL, step TEXT NOT NULL,
                                     tool TEXT NOT NULL, status TEXT NOT NULL, digest TEXT);
                 CREATE INDEX tools_pending ON tools(step) WHERE status = 'running';
@@ -173,6 +174,7 @@ class SQLiteReplayState:
                 outputs += event["output_tokens"]
                 _require(max(inputs, outputs) <= 2**53 - 1, "aggregate usage exceeds exact integer range")
                 self._db.execute("UPDATE meta SET input_tokens = ?, output_tokens = ?", (inputs, outputs))
+                self._db.execute("INSERT OR IGNORE INTO usage_steps VALUES (?)", (step,))
             elif kind == "step_finished":
                 _require(self._one("SELECT 1 FROM tools WHERE step = ? AND status = 'running' LIMIT 1", (step,)) is None,
                          "step has unfinished tools")
@@ -208,25 +210,37 @@ class SQLiteReplayState:
             self._invalidate()
             raise HistoryStorageError("history read failed; rebuild from verified prefix") from exc
 
-    def report(self, *, allow_partial: bool = False) -> dict:
-        """Materialize the exact detached v1 report, using O(history) memory."""
+    def report(self, *, allow_partial: bool = False, report_version: int = 1) -> dict:
+        """Materialize a detached v1/v2 report, using O(history) memory."""
+        _report_version(report_version)
         state = self._state()
         _require(allow_partial or state["status"] != "running",
                  "trace is incomplete; use allow_partial for an interrupted run")
-        return dict(version=1, run=state["run"], status=state["status"], events=self._count,
+        result = dict(version=report_version, run=state["run"], status=state["status"], events=self._count,
                     trace_sha256=self._digest.hexdigest(), steps=state["steps"], tools=state["tools"],
                     checkpoints=state["checkpoints"], usage=state["usage"],
                     unfinished_steps=sorted(state["active"].values()),
                     unfinished_tools=sorted(call for call, entry in state["tools"].items() if entry["status"] == "running"))
 
-    def iter_report(self, *, allow_partial: bool = False) -> Iterator[dict]:
-        """Stream detached v1 observations without materializing history maps.
+        if report_version == 2:
+            try:
+                recorded = {row[0] for row in self._db.execute("SELECT step FROM usage_steps ORDER BY step")}
+            except sqlite3.Error as exc:
+                self._invalidate()
+                raise HistoryStorageError("history usage read failed; rebuild from verified prefix") from exc
+            result["usage_observation"] = dict(recorded_steps=sorted(recorded),
+                                               unrecorded_steps=sorted(state["steps"].keys() - recorded))
+        return result
+
+    def iter_report(self, *, allow_partial: bool = False, report_version: int = 1) -> Iterator[dict]:
+        """Stream detached v1/v2 observations without materializing history maps.
 
         A single read transaction pins the export. Consume or close the iterator
         before appending or starting another export. The final complete marker
         is required; earlier records alone are not a complete report. No snapshot
         is exported and no existing database is reopened or trusted.
         """
+        _report_version(report_version)
         self._ensure_open()
         _require(not self._reporting, "an incremental report is already active")
         self._reporting = True
@@ -239,15 +253,22 @@ class SQLiteReplayState:
             _require(run is not None, "trace is empty")
             _require(allow_partial or status != "running",
                      "trace is incomplete; use allow_partial for an interrupted run")
-            yield dict(format="weasley-replay-report-jsonl", format_version=1,
-                       report_version=1, run=run, status=status, events=self._count,
+            yield dict(format="weasley-replay-report-jsonl", format_version=report_version,
+                       report_version=report_version, run=run, status=status, events=self._count,
                        trace_sha256=self._digest.hexdigest(),
                        usage=dict(input_tokens=inputs, output_tokens=outputs))
             self._ensure_open()
-            with closing(self._db.execute("SELECT * FROM steps ORDER BY step")) as rows:
-                for step, actor, step_status in rows:
+            query = ("SELECT * FROM steps ORDER BY step" if report_version == 1 else
+                     "SELECT s.step, s.actor, s.status, u.step IS NOT NULL FROM steps s "
+                     "LEFT JOIN usage_steps u ON u.step = s.step ORDER BY s.step")
+            with closing(self._db.execute(query)) as rows:
+                for entry in rows:
+                    step, actor, step_status = entry[:3]
                     counts["steps"] += 1
-                    yield dict(kind="step", id=step, value=dict(actor=actor, status=step_status))
+                    row = dict(kind="step", id=step, value=dict(actor=actor, status=step_status))
+                    if report_version == 2:
+                        row["usage_recorded"] = bool(entry[3])
+                    yield row
                     self._ensure_open()
             with closing(self._db.execute("SELECT * FROM tools ORDER BY call")) as rows:
                 for call, actor, step, tool, call_status, digest in rows:

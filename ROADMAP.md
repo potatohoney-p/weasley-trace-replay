@@ -102,3 +102,13 @@ projections, without changing default comparison. Acceptance: a valid same-actor
 call reorder is visible; all order-preserving cross-actor interleavings remain
 equivalent; invalid/partial inputs and policy incompatibility are explicit.
 This detects recorded local trace drift, not cross-actor causal or semantic drift.
+
+## Incremental usage-presence fidelity
+
+Opt-in SQLite report/stream v2 retains missing-versus-recorded-zero usage without
+materializing per-step presence arrays during export. Acceptance: every synthetic
+prefix matches independent event presence and in-memory v2 reports, snapshot
+replay reconstructs presence, invalid/overflowing events cannot mark it, and
+cleanup failures cannot publish completion. Default v1 output and snapshot schema
+remain unchanged. This extends bounded reporting; it is not evidence of complete
+telemetry, production adoption, or real-model performance.
