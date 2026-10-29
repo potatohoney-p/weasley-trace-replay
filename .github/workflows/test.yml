@@ -23,3 +23,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python -m demos.experiment
       - run: python -m weasley_trace_replay replay examples/completed.jsonl
+      - name: Build distributable wheel
+        run: python -m pip wheel --no-deps --wheel-dir dist .
+      - name: Validate installed CLI outside the checkout
+        run: python scripts/check_installed.py dist

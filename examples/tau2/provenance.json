@@ -1,0 +1,121 @@
+{
+  "source_url": "https://github.com/sierra-research/tau2-bench/blob/05736c27219b769d0be507574dd3135010916644/data/tau2/results/final/o4-mini-2025-04-16_airline_default_gpt-4.1-2025-04-14_4trials.json",
+  "artifact_revision": "05736c27219b769d0be507574dd3135010916644",
+  "artifact_bytes": 7599444,
+  "artifact_sha256": "6a3a354c9bce42b52905af096e9cea6f555548acbb17b567fd403c356df7b4ec",
+  "selected_identity": {
+    "id": "bfaceb85-d727-4de5-b37c-e31fdf90fb39",
+    "task_id": "46",
+    "trial": 0,
+    "seed": 626729
+  },
+  "original_row_canonical_sha256": "f8878ea1a9b47309d37b1ea76fa1bbeb3d012e7c2918b6e5e90fd4f821c99e96",
+  "canonicalization": "Python json.dumps(sort_keys=True, separators=(comma,colon), ensure_ascii=True, allow_nan=False), UTF-8 bytes, no trailing newline; preserve JSON integer/float types",
+  "integral_float_normalized_row_sha256": "fb13dfb6654884270c31adcaab51fd30be38a3240e637907c131adfe9684a76f",
+  "normalization_note": "The alternate row hash recursively converts integral finite floats such as 0.0 to integers before the same canonicalization. It is not the preserving-types row hash.",
+  "fixture_canonical_sha256": "9fc77bb6ca72f58a42589ffa8bbac89d26fec1b0d0bef53ea2a8ddb523fec636",
+  "fixture_omitted_fields": [
+    {
+      "path": "/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/start_time",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/end_time",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/duration",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/agent_cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/user_cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/reward_info",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/0/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/0/cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/0/raw_data",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/1/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/1/cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/1/raw_data",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/2/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/2/cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/2/raw_data",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/3/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/4/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/4/cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/4/raw_data",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/5/timestamp",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/5/cost",
+      "scope": "entire subtree"
+    },
+    {
+      "path": "/messages/5/raw_data",
+      "scope": "entire subtree"
+    }
+  ],
+  "archive_exclusions": [
+    "tasks",
+    "other simulations",
+    "archive timestamp",
+    "info except declared runner revision"
+  ],
+  "declared_runner_revision": "c30d59aaa71c65f9b9eb6a8f8636b48945028fcf",
+  "runner_source_reproduced": false,
+  "license": "MIT; Copyright (c) 2025 Sierra Research; see LICENSE",
+  "historical_context": "Original June 2025 paper results; airline task predates later fixes. Not a current leaderboard result or provider-quality claim."
+}

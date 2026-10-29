@@ -1,0 +1,2319 @@
+{
+  "benchmark": "history-storage",
+  "cases": [
+    {
+      "backends": {
+        "memory": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 32033,
+              "retained_traced_bytes": 24156,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 32033,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 24156,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 32033,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 24156,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 32033,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 24156,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 0,
+              "elapsed_ns": 7397200,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 7171000,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 7397200,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 8078800,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 23017,
+              "retained_traced_bytes": 15625,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 23017,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 15625,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 23017,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 15625,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 23017,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 15625,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          }
+        },
+        "sqlite": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 40960,
+              "peak_traced_bytes": 23676,
+              "retained_traced_bytes": 18548,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 23676,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 18548,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 23676,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 18548,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 23676,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 18548,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 40960,
+              "elapsed_ns": 1133163900,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "elapsed_ns": 1133163900,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "elapsed_ns": 1105756000,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "elapsed_ns": 1355305500,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 40960,
+              "peak_traced_bytes": 33053,
+              "retained_traced_bytes": 32541,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 33053,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 32541,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 33053,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 32541,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 40960,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 33053,
+                "protocol_version": 1,
+                "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+                "retained_traced_bytes": 32541,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 4
+                }
+              }
+            ]
+          }
+        }
+      },
+      "events": 130,
+      "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+      "steps": 16,
+      "tools": 32,
+      "trace_sha256": "bddef12b894f5fda6f324ad1ec60ef5c82504ceea5e497e57e50738c7b3a5901",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 4
+      }
+    },
+    {
+      "backends": {
+        "memory": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 118171,
+              "retained_traced_bytes": 67764,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 118171,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 67764,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 118171,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 67764,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 118171,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 67764,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 0,
+              "elapsed_ns": 95274100,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 95274100,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 89432000,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 98294800,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 84073,
+              "retained_traced_bytes": 57225,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 84073,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 57225,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 84073,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 57225,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 84073,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 57225,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          }
+        },
+        "sqlite": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 69632,
+              "peak_traced_bytes": 24012,
+              "retained_traced_bytes": 18436,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24012,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 18436,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24012,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 18436,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24012,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 18436,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 69632,
+              "elapsed_ns": 4881759800,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "elapsed_ns": 4909298200,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "elapsed_ns": 4237816400,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "elapsed_ns": 4881759800,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 69632,
+              "peak_traced_bytes": 122004,
+              "retained_traced_bytes": 120077,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 122004,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 120077,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 122004,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 120077,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 69632,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 122004,
+                "protocol_version": 1,
+                "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+                "retained_traced_bytes": 120077,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 16
+                }
+              }
+            ]
+          }
+        }
+      },
+      "events": 514,
+      "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+      "steps": 64,
+      "tools": 128,
+      "trace_sha256": "493cbafce8b2a60fb9c0d7adf7b4a2fbe793931a52d591e6aafd9b0623eb711d",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 16
+      }
+    },
+    {
+      "backends": {
+        "memory": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 462236,
+              "retained_traced_bytes": 211196,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 462236,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 211196,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 462236,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 211196,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 462236,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 211196,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 0,
+              "elapsed_ns": 1301883500,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 1289017600,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 1308116100,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "elapsed_ns": 1301883500,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 0,
+              "peak_traced_bytes": 329833,
+              "retained_traced_bytes": 224393,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 329833,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 224393,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 329833,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 224393,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "memory",
+                "database_bytes": 0,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 329833,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 224393,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": null,
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          }
+        },
+        "sqlite": {
+          "append_allocations": {
+            "medians": {
+              "database_bytes": 167936,
+              "peak_traced_bytes": 24140,
+              "retained_traced_bytes": 17284,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24140,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 17284,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24140,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 17284,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_allocations",
+                "peak_traced_bytes": 24140,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 17284,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          },
+          "append_time": {
+            "medians": {
+              "database_bytes": 167936,
+              "elapsed_ns": 22240653300,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "elapsed_ns": 13140263500,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "elapsed_ns": 22240653300,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "elapsed_ns": 23561084500,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "append_time",
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          },
+          "report_allocations": {
+            "medians": {
+              "database_bytes": 167936,
+              "peak_traced_bytes": 482132,
+              "retained_traced_bytes": 471181,
+              "sidecar_bytes": 0
+            },
+            "samples": [
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 482132,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 471181,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 482132,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 471181,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              },
+              {
+                "backend": "sqlite",
+                "database_bytes": 167936,
+                "environment": {
+                  "gc_enabled": true,
+                  "implementation": "CPython",
+                  "logical_cpus": 32,
+                  "machine": "AMD64",
+                  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+                  "python": "3.14.5",
+                  "python_compiler": "MSC v.1944 64 bit (AMD64)",
+                  "release": "11",
+                  "sqlite_version": "3.50.4",
+                  "system": "Windows",
+                  "timer": "perf_counter_ns"
+                },
+                "measurement": "report_allocations",
+                "peak_traced_bytes": 482132,
+                "protocol_version": 1,
+                "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+                "retained_traced_bytes": 471181,
+                "sidecar_bytes": 0,
+                "sources": {
+                  "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+                  "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+                  "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+                  "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+                },
+                "sqlite_pragmas": {
+                  "cache_size": -2048,
+                  "journal_mode": "delete",
+                  "mmap_size": 0,
+                  "synchronous": 2
+                },
+                "validated": true,
+                "workload": {
+                  "actors": 4,
+                  "calls": 2,
+                  "rounds": 64
+                }
+              }
+            ]
+          }
+        }
+      },
+      "events": 2050,
+      "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+      "steps": 256,
+      "tools": 512,
+      "trace_sha256": "2d70ecf6c7a763c36ad5bd2ebe2f4416ad71338aced8cab624e3c694744b7958",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 64
+      }
+    }
+  ],
+  "environment": {
+    "gc_enabled": true,
+    "implementation": "CPython",
+    "logical_cpus": 32,
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "python": "3.14.5",
+    "python_compiler": "MSC v.1944 64 bit (AMD64)",
+    "release": "11",
+    "sqlite_version": "3.50.4",
+    "system": "Windows",
+    "timer": "perf_counter_ns"
+  },
+  "passed": true,
+  "protocol_version": 1,
+  "pythonhashseed": "0",
+  "recorded_at_utc": "2026-10-22T15:53:15.258840+00:00",
+  "repeats": 3,
+  "sources": {
+    "demos/history_storage.py": "f1d5dd83d806f21729364b9a894b1f82f8b15aa24b78216d1d0f8b8c6d1d20ce",
+    "demos/scaling.py": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+    "weasley_trace_replay/replay.py": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519",
+    "weasley_trace_replay/sqlite_history.py": "dd5f8debb49a32e981439a08a3e05e999606becc100e956f9dd65258142e3000"
+  },
+  "worker_timeout_seconds": 120
+}
