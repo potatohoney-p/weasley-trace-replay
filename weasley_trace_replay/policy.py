@@ -6,7 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .replay import TraceError, _canonical, _constant, _float, _pairs, _require, compare
+from .replay import TraceError, _canonical, _constant, _float, _pairs, _require, _open_input, compare
 
 TOKEN_FIELDS = {"input_tokens", "output_tokens"}
 MAX_TOKENS = 2**53 - 1
@@ -29,7 +29,7 @@ def validate_policy(policy: dict) -> None:
 def read_policy(path: str | Path, *, max_bytes: int = 65536) -> dict:
     """Read bounded strict JSON. Duplicate keys and nonfinite values fail closed."""
     _require(type(max_bytes) is int and max_bytes > 0, "invalid policy size limit")
-    with Path(path).open("rb") as stream:
+    with _open_input(path) as stream:
         raw = stream.read(max_bytes + 1)
     try:
         _require(len(raw) <= max_bytes, "comparison policy exceeds size limit")

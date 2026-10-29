@@ -1,0 +1,186 @@
+{
+  "benchmark": "replay-scaling",
+  "cases": [
+    {
+      "events": 130,
+      "operations": {
+        "replay": {
+          "elapsed_ns": [
+            6127300,
+            6132500,
+            21494900
+          ],
+          "median_elapsed_ns": 6132500,
+          "median_peak_traced_bytes": 36789,
+          "peak_traced_bytes": [
+            36789,
+            36789,
+            36789
+          ],
+          "retained_traced_bytes": [
+            26749,
+            26749,
+            26749
+          ]
+        },
+        "verified_resume": {
+          "elapsed_ns": [
+            7407900,
+            5338600,
+            5488500
+          ],
+          "median_elapsed_ns": 5488500,
+          "median_peak_traced_bytes": 37581,
+          "peak_traced_bytes": [
+            37581,
+            37581,
+            37581
+          ],
+          "retained_traced_bytes": [
+            27501,
+            27501,
+            27501
+          ]
+        }
+      },
+      "report_sha256": "44b6c798767ed2a32f9b8abefa19c94f20af8b1740f8ef1b40c18becee755991",
+      "resume_prefix_events": 77,
+      "steps": 16,
+      "tools": 32,
+      "trace_sha256": "bddef12b894f5fda6f324ad1ec60ef5c82504ceea5e497e57e50738c7b3a5901",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 4
+      }
+    },
+    {
+      "events": 514,
+      "operations": {
+        "replay": {
+          "elapsed_ns": [
+            78986800,
+            83121700,
+            73958000
+          ],
+          "median_elapsed_ns": 78986800,
+          "median_peak_traced_bytes": 133069,
+          "peak_traced_bytes": [
+            133069,
+            133069,
+            133069
+          ],
+          "retained_traced_bytes": [
+            75869,
+            75869,
+            75869
+          ]
+        },
+        "verified_resume": {
+          "elapsed_ns": [
+            86437800,
+            77436300,
+            79293300
+          ],
+          "median_elapsed_ns": 79293300,
+          "median_peak_traced_bytes": 133109,
+          "peak_traced_bytes": [
+            133109,
+            133109,
+            133109
+          ],
+          "retained_traced_bytes": [
+            75917,
+            75917,
+            75917
+          ]
+        }
+      },
+      "report_sha256": "887543472cdc5da9a8f98ffd86f11c7df06ebd6ec390b9fd2b5588162de26152",
+      "resume_prefix_events": 269,
+      "steps": 64,
+      "tools": 128,
+      "trace_sha256": "493cbafce8b2a60fb9c0d7adf7b4a2fbe793931a52d591e6aafd9b0623eb711d",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 16
+      }
+    },
+    {
+      "events": 2050,
+      "operations": {
+        "replay": {
+          "elapsed_ns": [
+            1106171600,
+            1099000400,
+            1388605100
+          ],
+          "median_elapsed_ns": 1106171600,
+          "median_peak_traced_bytes": 521421,
+          "peak_traced_bytes": [
+            521421,
+            521421,
+            521421
+          ],
+          "retained_traced_bytes": [
+            243765,
+            243765,
+            243765
+          ]
+        },
+        "verified_resume": {
+          "elapsed_ns": [
+            1562331800,
+            1185004000,
+            1113974400
+          ],
+          "median_elapsed_ns": 1185004000,
+          "median_peak_traced_bytes": 521461,
+          "peak_traced_bytes": [
+            521461,
+            521461,
+            521461
+          ],
+          "retained_traced_bytes": [
+            243813,
+            243813,
+            243813
+          ]
+        }
+      },
+      "report_sha256": "9d87a6ed009d577675923bc40c6b459cea3cc948d879488e5e612490aef9f7c7",
+      "resume_prefix_events": 1037,
+      "steps": 256,
+      "tools": 512,
+      "trace_sha256": "2d70ecf6c7a763c36ad5bd2ebe2f4416ad71338aced8cab624e3c694744b7958",
+      "workload": {
+        "actors": 4,
+        "calls": 2,
+        "rounds": 64
+      }
+    }
+  ],
+  "environment": {
+    "gc_enabled": true,
+    "implementation": "CPython",
+    "logical_cpus": 32,
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "python": "3.14.5",
+    "python_compiler": "MSC v.1944 64 bit (AMD64)",
+    "release": "11",
+    "system": "Windows",
+    "timer": "perf_counter_ns"
+  },
+  "passed": true,
+  "protocol_version": 1,
+  "pythonhashseed": "0",
+  "recorded_at_utc": "2026-10-22T11:05:44.445084+00:00",
+  "repeats": 3,
+  "sources": {
+    "benchmark_sha256": "398157ee07eca66e77e6fb43ac83f4614f7fb5cdc59f8b9105b417c42b6b89e9",
+    "replay_sha256": "243d124ed92590a22f89c2cd231abe44a54019758c7f6acab3011849873bc519"
+  },
+  "worker_timeout_seconds": 120
+}

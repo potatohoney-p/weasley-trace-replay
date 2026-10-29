@@ -82,9 +82,24 @@ the failure report. Their metadata identifies the replay mode and expected
 comparison, so a counterexample does not require reconstructing its other side.
 Repeated-replay mismatches save two identical input traces: their context states
 that the bug is differing strict replay outputs, not observational input drift.
-It refuses to overwrite an existing
-directory. A successful run creates no artifacts. Self-tests exercise saved-file
-roundtrips, overwrite refusal, the failed exit code, and no-write success.
+It refuses to overwrite an existing directory. A successful run creates no
+artifacts and retains its existing report format.
+
+Failure reports include `artifact_status`: `not_requested` without
+`--failure-dir`, `saved` after every file was written, or `failed` if saving
+encountered an I/O or invalid-path error. In the last case, the report also has
+`artifact_error: "unable_to_save_failure_artifacts"`; paths and exception text
+are not printed. The original failure label, context, minimality, counterexample,
+and comparison baseline remain in stdout JSON, and the gate still exits 1.
+The library `save_failure()` continues to raise its filesystem exceptions.
+
+Saving is not transactional: an interrupted write can leave incomplete files in
+the newly created directory. A failed status does not claim which files survived;
+use the stdout evidence and a new destination for a later attempt. There is no
+automatic deletion, overwrite, or retry. This fallback requires writable stdout;
+it does not cover process termination or unexpected programming errors. Self-tests
+exercise existing destinations, invalid paths, permission/encoding errors, partial
+writes, successful roundtrips, the failed exit code, and no-write success.
 
 The reducer removes events and renumbers sequence fields while preserving the
 specific failure predicate. Valid-state failures retain a dependency-closed DAG

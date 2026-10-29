@@ -5,7 +5,8 @@ Reconstruct what completed, failed, or remained unfinished; compare two runs
 without executing a model or repeating a tool side effect.
 
 This is an offline research toolkit. It is not a runtime, benchmark runner,
-or claim about any model's quality. All included traces are synthetic.
+or claim about any model's quality. Lifecycle demos are synthetic; one reviewed
+historical tau2 benchmark episode supplies an external compatibility fixture.
 
 ## Run the working demo
 
@@ -41,6 +42,13 @@ the commands above work directly from the checkout without installation.
 - Differential testing that tolerates independent actor interleavings while
   locating changes to tool outcomes, checkpoint digests, usage, and terminal state.
 
+For growing histories, the opt-in library backend
+`weasley_trace_replay.sqlite_history.SQLiteReplayState` keeps exact steps, calls
+and checkpoints in a new SQLite file. Appends avoid growing Python history maps;
+full reports and snapshots still materialize the history. See the
+[API, failure contract and resource protocol](experiments/history-storage.md).
+This does not compact history or resume a runtime process.
+
 ## Explicit resource comparison policies
 
 Default `compare(left, right)` and `diff` still compare recorded observations
@@ -61,9 +69,9 @@ accepted iff `abs(candidate - baseline) <= tolerance`. Unlisted fields remain
 exact; zero permits no difference. There are no percentages, automatic estimates,
 or inferred budgets. Missing or malformed **report usage fields** are rejected,
 never treated as zero. Replay has always initialized aggregate usage to zero:
-a valid trace with no usage events and one with explicit 0/0 usage compare the
-same. This policy cannot detect missing measurement telemetry or prove usage was
-measured; it operates on the recorded aggregate, preserving that legacy behavior.
+by default (report v1), a valid trace with no usage events and one with explicit
+0/0 usage compare the same. Opt-in report v2 distinguishes recorded usage-event
+presence as described below, but does not prove measurements are complete or true.
 Only these token fields can be tolerated: actor/step/call identity, outcomes,
 tool result digests, checkpoints and unfinished work retain exact comparison.
 
@@ -81,11 +89,62 @@ Key order/whitespace do not affect it. An absent allowlist entry and an explicit
 zero entry have distinct policy digests even though both enforce exactness.
 This digest identifies the supplied policy, not its author or appropriateness.
 
-All examples/tests remain synthetic. A permissive tolerance can accept a large
+The resource-policy examples are synthetic. A permissive tolerance can accept a large
 usage difference; choosing it is the caller's responsibility. Acceptance does not
 establish task quality, tokenizer correctness, cost, speed, real runtime behavior,
 or authenticity. The API validates policy and usage, not arbitrary hand-made report
 provenance or the entire report schema; use replay-produced reports.
+
+## Recorded usage-event presence (opt-in report v2)
+
+```sh
+python -m weasley_trace_replay replay examples/interrupted.jsonl --allow-partial --report-version 2
+python -m weasley_trace_replay diff examples/completed.jsonl examples/drift.jsonl --report-version 2
+```
+
+Library callers pass `report_version=2` to `replay`, `resume`, or
+`ReplayState.report`. The v2 report adds `usage_observation` with sorted
+`recorded_steps` and `unrecorded_steps` lists partitioning all started step IDs.
+A step is recorded when at least one valid `usage` event appeared, even if both
+counts were zero. A step without such an event remains unrecorded, including in
+partial, cancelled, or failed traces. No token count is invented or estimated.
+
+Comparison requires matching report versions. V2 compares this partition exactly;
+resource policies cannot tolerate its changes. A zero-usage event removed from
+one step is therefore visible even when aggregate usage is unchanged. The default
+v1 reports and CLI output are unchanged. Both traces omitting usage still compare
+equal: equivalence is not a requirement that measurements exist. Repeated usage
+events on an already recorded step do not change presence (their tokens still
+sum normally). Neither presence nor an empty unrecorded list proves full billing
+coverage, real provider activity, correct tokenization, or authenticity.
+
+Trace events and snapshots remain v1. Presence is not serialized into the v1
+snapshot: verified-prefix resume reconstructs it by replaying the required prefix,
+then updates it from the suffix. Existing snapshots remain usable. This retains
+prefix replay costs and is not constant-time process recovery.
+
+## Historical tau2 episode adapter
+
+```sh
+python -m demos.tau2_compatibility
+```
+
+This offline acceptance command maps one pinned historical June 2025 tau2
+episode, checks a literal independent replay oracle, verifies every nonempty
+prefix resume, and detects a counterfactual tool-output change. Native call
+identity and explicit outcome are preserved; exact UTF-8 output text is hashed.
+No tool or provider is executed. The narrow supported profile rejects missing,
+duplicate, orphan or ambiguous calls and unsupported conversation terminals.
+
+Use `weasley_trace_replay.tau2.adapt_episode(read_episode(path))` to obtain events,
+provenance, a loss ledger and derived-field declarations. This first adapter
+does not support arbitrary tau2 episodes. Completion means a supported recorded
+conversation boundary, not task resolution or a verified human transfer.
+Incomplete usage is omitted: replay v1's zero aggregate means **unreported** here.
+Replay alone cannot detect argument-only or final-assistant-text-only changes.
+See the [protocol, source verification and limitations](experiments/tau2-compatibility.md).
+The [minimized fixture and provenance](examples/tau2/provenance.json) are attributed
+to Sierra Research under the [upstream MIT license](examples/tau2/LICENSE).
 
 ## Verified snapshots and incremental replay
 
@@ -118,12 +177,21 @@ with fresh replay. The reconstructed SHA-256 context then hashes the suffix;
 a saved digest is never used as a hash seed.
 
 This is a verified replay boundary, not constant-time restart or an authenticated
-checkpoint. Prefix replay still costs time; each incremental append stages a
-state copy for atomic rejection. History grows without compaction. Snapshots do
+checkpoint. Prefix replay still costs time; each incremental append stages only the containers it may mutate for atomic
+rejection. Usage events do not traverse historical steps or tools. History still
+grows without compaction; changed history maps are shallow-copied and some
+transitions still scan history. This is not constant-time or bounded-state replay. Snapshots do
 not restore a real agent process, replay tools, or recover opaque checkpoint data.
 Anyone who can edit both prefix and snapshot can produce a new consistent pair.
 
 ## Design and evidence
+
+The [scaling evaluator](experiments/scaling.md) measures deterministic histories
+of 130, 514, and 2,050 events in fresh worker processes. It records separate timing
+and Python-allocation samples for replay and verified-prefix resume, gated by an
+independent full-report oracle. Run `python -m demos.scaling` for the documented
+baseline protocol. This is measurement groundwork for bounded-state work; replay
+still retains history, and verified resume still replays its prefix.
 
 See [the contract and design rationale](docs/design.md),
 [the reproducible experiment](experiments/README.md), and [roadmap](ROADMAP.md).
@@ -148,8 +216,9 @@ oracle. It does not import those runtimes or repackage their code.
 
 ## Limitations
 
-Traces must already use this contract. There is no automatic sanitizer or legacy
-trace importer. Prompt text, tool arguments, raw results, URLs, and free-form
+Replay inputs must use this contract. The narrow historical tau2 adapter above
+is the only external conversion; there is no automatic sanitizer or general
+legacy trace importer. Prompt text, tool arguments, raw results, URLs, and free-form
 metadata are forbidden fields, but identifiers and hashes can still disclose
 information. Review any future real trace before sharing it.
 
@@ -168,3 +237,58 @@ reconstructed step/tool maps grow with the trace. Snapshot reads are capped at
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+## Synthetic Subagents adapter
+
+The opt-in `weasley_trace_replay.subagents.adapt_synthetic_subagents` library
+function converts a reviewed synthetic lifecycle/message projection into replay
+events, with explicit losses and derived identities. See the
+[bounded input contract and source pin](docs/subagents-adapter.md). It does not
+accept arbitrary production logs or execute a runtime/provider.
+
+### Synthetic Assistant graph adapter
+
+`weasley_trace_replay.assistant.adapt_synthetic_assistant` converts a reviewed,
+content-minimized graph lifecycle projection into v1 events. It validates node
+visits, concurrent starts, terminal paths and incomplete prefixes without guessing
+tool identities or measurements. See [the source pin, input contract, loss ledger
+and runnable example](docs/assistant-adapter.md). This is not live trace capture.
+
+## Installed distribution validation
+
+CI also builds a wheel and runs `python scripts/check_installed.py dist` on every
+supported OS/Python matrix entry. The checker requires exactly one wheel, creates
+a temporary virtual environment, installs that artifact with `--no-index --no-deps`,
+and runs the installed console entry point outside the checkout with `PYTHONPATH`
+and `PYTHONHOME` removed. An isolated `python -I` import must resolve inside the new
+environment; module and console replay outputs must agree. It covers synthetic
+replay, exact/policy comparison, partial traces, snapshots, verified resume, and
+content-free invalid-input exit codes. This validates distribution wiring, not a
+real runtime, performance result, release publication, or all possible inputs.
+
+To reproduce, build with `python -m pip wheel --no-deps --wheel-dir dist .`, then
+run `python scripts/check_installed.py dist`. Building may fetch the declared
+setuptools build dependency; installation and smoke cases do not fetch packages.
+Use a fresh output directory (or pass one wheel path) rather than selecting an
+arbitrary artifact from a directory containing multiple wheels.
+
+## Incremental report output
+
+`replay --report-format jsonl` validates into temporary disk history and streams
+individual v1 observations without materializing full report maps. Default JSON
+output remains unchanged. Require exit 0 and the terminal completion record;
+partial output is not a report. The library exposes `SQLiteReplayState.iter_report`.
+See [the transport, cleanup and resource contract](docs/incremental-report.md).
+This does not stream snapshots or add real-agent performance evidence. Combining
+`--report-format jsonl` with `--report-version 2` is rejected with exit 2.
+
+## Optional actor-local trace fidelity
+
+`diff --actor-traces` additionally requires exact recorded event sequences per
+actor while ignoring global interleaving and run identity. This can detect local
+call-order changes that intentionally compare equal under the default observation
+oracle. It is stricter even for overlapping calls and usage segmentation, not a
+causal or semantic equivalence claim. It cannot be combined with `--policy`.
+It uses v1 observations; combining it with `--report-version 2` is rejected with
+exit 2 rather than silently discarding the requested version.
+See [the contract and synthetic examples](docs/actor-traces.md).

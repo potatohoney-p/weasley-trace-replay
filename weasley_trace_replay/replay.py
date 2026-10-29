@@ -53,10 +53,20 @@ def _float(value: str) -> float:
     return number
 
 
+def _open_input(path: str | Path):
+    """Normalize malformed filesystem names without hiding ordinary I/O errors."""
+    try:
+        return Path(path).open("rb")
+    except (ValueError, UnicodeError) as exc:
+        # NUL names and names the filesystem cannot encode fail before I/O.
+        # Keep payload/path details out of the public validation message.
+        raise TraceError("invalid input path") from exc
+
+
 def read_events(path: str | Path, *, max_line_bytes: int = 65536) -> Iterator[dict]:
     """Read bounded UTF-8 JSON lines. Blank lines and a torn final line fail closed."""
     _require(type(max_line_bytes) is int and max_line_bytes > 0, "invalid line limit")
-    with Path(path).open("rb") as stream:
+    with _open_input(path) as stream:
         number = 0
         while raw := stream.readline(max_line_bytes + 1):
             number += 1
@@ -99,7 +109,7 @@ def _canonical(value: Any) -> bytes:
 class ReplayState:
     """Incremental replay with atomic individual appends, not a runtime executor.
 
-    Reports and snapshots are detached copies. Each append stages a state copy;
+    Reports and snapshots are detached copies. Each append stages affected state;
     rejected events leave the state and hash untouched. An extend failure retains
     its valid earlier events, but never any part of the rejected event. This is
     intentionally not bounded-state replay and is not thread-safe.
@@ -113,13 +123,14 @@ class ReplayState:
         }
         self._digest = hashlib.sha256()
         self._count = 0
+        self._usage_steps: set[str] = set()
 
     def append(self, event: dict) -> None:
         """Validate and append exactly one event without partial mutation."""
         try:
             _validate(event, self._count)
             encoded = _canonical(event)
-            candidate = copy.deepcopy(self._state)
+            candidate = _stage(self._state, event)
             _transition(candidate, event)
             digest = self._digest.copy()
             digest.update(encoded)
@@ -128,20 +139,23 @@ class ReplayState:
             raise TraceError(f"event {self._count}: {exc}") from exc
         self._state, self._digest = candidate, digest
         self._count += 1
+        if event["type"] == "usage":
+            self._usage_steps.add(event["step"])
 
     def extend(self, events: Iterable[dict]) -> None:
         """Append in order; each event, not the whole iterable, is atomic."""
         for event in events:
             self.append(event)
 
-    def report(self, *, allow_partial: bool = False) -> dict:
+    def report(self, *, allow_partial: bool = False, report_version: int = 1) -> dict:
         """Return the same detached report as replay() at this boundary."""
+        _report_version(report_version)
         state = self._state
         _require(state["run"] is not None, "trace is empty")
         _require(allow_partial or state["status"] != "running",
                  "trace is incomplete; use allow_partial for an interrupted run")
-        return copy.deepcopy({
-            "version": 1, "run": state["run"], "status": state["status"],
+        result = copy.deepcopy({
+            "version": report_version, "run": state["run"], "status": state["status"],
             "events": self._count, "trace_sha256": self._digest.hexdigest(),
             "steps": dict(sorted(state["steps"].items())),
             "tools": dict(sorted(state["tools"].items())),
@@ -151,6 +165,12 @@ class ReplayState:
             "unfinished_tools": sorted(key for key, call in state["tools"].items()
                                        if call["status"] == "running"),
         })
+        if report_version == 2:
+            result["usage_observation"] = {
+                "recorded_steps": sorted(self._usage_steps),
+                "unrecorded_steps": sorted(state["steps"].keys() - self._usage_steps),
+            }
+        return result
 
     def snapshot(self) -> dict:
         """Capture a versioned verification record, including historical IDs."""
@@ -175,6 +195,33 @@ class ReplayState:
         _require(_canonical(restored.snapshot()) == _canonical(saved),
                  "snapshot does not match verified prefix")
         return restored
+
+
+def _stage(state: dict, event: dict) -> dict:
+    """Copy only containers that this transition can mutate.
+
+    Immutable scalar values and untouched history may be shared internally.
+    This private staging view never escapes; reports and snapshots remain deep
+    copies. No container mutated by _transition may alias the committed state.
+    """
+    candidate = state.copy()
+    kind = event["type"]
+    if kind in {"step_started", "step_finished"}:
+        candidate["steps"] = state["steps"].copy()
+        candidate["active"] = state["active"].copy()
+        if kind == "step_finished" and event["step"] in state["steps"]:
+            candidate["steps"][event["step"]] = state["steps"][event["step"]].copy()
+    elif kind in {"tool_started", "tool_finished"}:
+        candidate["tools"] = state["tools"].copy()
+        if kind == "tool_finished" and event["call"] in state["tools"]:
+            candidate["tools"][event["call"]] = state["tools"][event["call"]].copy()
+    elif kind == "checkpoint":
+        candidate["checkpoints"] = state["checkpoints"].copy()
+        if event["step"] in state["checkpoints"]:
+            candidate["checkpoints"][event["step"]] = state["checkpoints"][event["step"]].copy()
+    elif kind == "usage":
+        candidate["usage"] = state["usage"].copy()
+    return candidate
 
 
 def _transition(state: dict, event: dict) -> None:
@@ -225,11 +272,12 @@ def _transition(state: dict, event: dict) -> None:
                      "completed run has unsuccessful steps")
 
 
-def replay(events: Iterable[dict], *, allow_partial: bool = False) -> dict:
-    """Compatible full-replay wrapper around incremental lifecycle state."""
+def replay(events: Iterable[dict], *, allow_partial: bool = False, report_version: int = 1) -> dict:
+    """Compatible full-replay wrapper; opt-in report v2 exposes usage presence."""
+    _report_version(report_version)
     state = ReplayState()
     state.extend(events)
-    return state.report(allow_partial=allow_partial)
+    return state.report(allow_partial=allow_partial, report_version=report_version)
 
 
 def snapshot(events: Iterable[dict]) -> dict:
@@ -240,11 +288,12 @@ def snapshot(events: Iterable[dict]) -> dict:
 
 
 def resume(saved: dict, prefix: Iterable[dict], suffix: Iterable[dict], *,
-           allow_partial: bool = False) -> dict:
+           allow_partial: bool = False, report_version: int = 1) -> dict:
     """Verify a snapshot against its entire prefix, then append only the suffix."""
+    _report_version(report_version)
     state = ReplayState.from_snapshot(saved, prefix)
     state.extend(suffix)
-    return state.report(allow_partial=allow_partial)
+    return state.report(allow_partial=allow_partial, report_version=report_version)
 
 
 def _identifier(value: Any) -> None:
@@ -333,7 +382,7 @@ def read_snapshot(path: str | Path, *, max_bytes: int = 16 * 1024 * 1024) -> dic
     Increase max_bytes explicitly for larger histories; state is not compacted.
     """
     _require(type(max_bytes) is int and max_bytes > 0, "invalid snapshot size limit")
-    with Path(path).open("rb") as stream:
+    with _open_input(path) as stream:
         raw = stream.read(max_bytes + 1)
     try:
         _require(len(raw) <= max_bytes, "snapshot exceeds size limit")
@@ -345,9 +394,41 @@ def read_snapshot(path: str | Path, *, max_bytes: int = 16 * 1024 * 1024) -> dic
         raise TraceError("invalid snapshot JSON or state") from exc
 
 
+def _report_version(version: Any) -> None:
+    _require(type(version) is int and version in {1, 2}, "unsupported replay report version")
+
+
+def _usage_observation(report: dict) -> None:
+    """Validate v2 presence metadata, not authenticity or measurement completeness."""
+    observation = report.get("usage_observation")
+    _object(observation, {"recorded_steps", "unrecorded_steps"})
+    for values in observation.values():
+        _require(type(values) is list, "invalid usage observation steps")
+        for step in values:
+            _identifier(step)
+        _require(values == sorted(set(values)), "invalid usage observation ordering")
+    recorded, unrecorded = map(set, (observation["recorded_steps"], observation["unrecorded_steps"]))
+    _require(type(report.get("steps")) is dict and not recorded & unrecorded and
+             recorded | unrecorded == report["steps"].keys(), "invalid usage observation partition")
+
+
 def compare(left: dict, right: dict) -> dict:
-    """Compare replay observations, ignoring run identity and interleaving order."""
+    """Compare observations and return evidence detached from both input reports.
+
+    Run identity and interleaving order are ignored. Mutable before/after values
+    belong to the result: later edits on either side cannot rewrite the other.
+    """
+    for report in (left, right):
+        _require(type(report) is dict, "invalid replay report")
+        _report_version(report.get("version"))
+        if report["version"] == 2:
+            _usage_observation(report)
+        else:
+            _require("usage_observation" not in report, "v1 report cannot carry usage observations")
+    _require(left["version"] == right["version"], "cannot compare different replay report versions")
     keys = ("status", "steps", "tools", "checkpoints", "usage", "unfinished_steps", "unfinished_tools")
+    if left["version"] == 2:
+        keys += ("usage_observation",)
     changes = []
 
     def visit(path: str, before: Any, after: Any) -> None:
@@ -362,4 +443,5 @@ def compare(left: dict, right: dict) -> dict:
 
     for key in keys:
         visit(f"/{key}", left[key], right[key])
-    return {"equivalent": not changes, "changes": changes}
+    # Only changed observations need copying, not the complete report histories.
+    return {"equivalent": not changes, "changes": copy.deepcopy(changes)}
