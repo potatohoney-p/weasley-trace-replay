@@ -137,7 +137,14 @@ No tool or provider is executed. The narrow supported profile rejects missing,
 duplicate, orphan or ambiguous calls and unsupported conversation terminals.
 
 Use `weasley_trace_replay.tau2.adapt_episode(read_episode(path))` to obtain events,
-provenance, a loss ledger and derived-field declarations. This first adapter
+provenance, a loss ledger and derived-field declarations. Direct in-memory inputs
+to `adapt_episode` and `minimize_episode` must use plain JSON values: exact built-in
+`dict` objects with string keys, `list`, `str`, `int`, finite `float`, `bool`, or
+`None`. Tuples, non-string keys, custom subclasses, and cyclic containers are
+rejected rather than silently coerced before provenance hashing. This validation
+also covers omitted metadata and call arguments; shared non-cyclic containers
+are allowed. It does not authenticate the source or add omitted fields to replay.
+This first adapter
 does not support arbitrary tau2 episodes. Completion means a supported recorded
 conversation boundary, not task resolution or a verified human transfer.
 Incomplete usage is omitted: replay v1's zero aggregate means **unreported** here.
