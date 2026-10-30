@@ -292,3 +292,12 @@ causal or semantic equivalence claim. It cannot be combined with `--policy`.
 It uses v1 observations; combining it with `--report-version 2` is rejected with
 exit 2 rather than silently discarding the requested version.
 See [the contract and synthetic examples](docs/actor-traces.md).
+
+## Compare live disk histories
+
+`weasley_trace_replay.history_comparison.compare_histories(left, right)` compares
+two live SQLite replay states without materializing history-sized report maps.
+It checks exact v1 observations, retains a detached first-difference witness, and
+fully drains both exports so late read/cleanup failures cannot become a result.
+See [semantics, ownership and scoped memory limits](docs/history-comparison.md).
+This is not an arbitrary JSONL reader, full path-wise diff, or v2 comparison.

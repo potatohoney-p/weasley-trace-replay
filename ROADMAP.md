@@ -102,3 +102,13 @@ projections, without changing default comparison. Acceptance: a valid same-actor
 call reorder is visible; all order-preserving cross-actor interleavings remain
 equivalent; invalid/partial inputs and policy incompatibility are explicit.
 This detects recorded local trace drift, not cross-actor causal or semantic drift.
+
+## Incremental disk-history comparison
+
+Live SQLite histories can be compared with record-sized Python working storage
+through `history_comparison.compare_histories`. Acceptance: exact materialized-v1
+equivalence decisions, canonical record ordering, detached first-difference
+witness, no full report materialization, and no result after late read/cleanup
+failure on either side. See `docs/history-comparison.md`. Disk use and total work
+still grow with history; v2, arbitrary-stream validation and complete streaming
+path-wise diffs remain separate work.
