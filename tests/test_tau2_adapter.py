@@ -136,6 +136,44 @@ class Tau2AdapterTests(unittest.TestCase):
             with self.assertRaises(AdapterError):
                 adapt_episode(invalid)
 
+    def test_direct_api_rejects_coerced_json_values_in_all_source_subtrees(self):
+        class String(str): pass
+        class Integer(int): pass
+        class Array(list): pass
+        class Object(dict): pass
+        invalid_values = [{1: "private"}, {None: "private"}, {True: "private"},
+                          (1, 2), b"private", {"nested": (1, 2)},
+                          String("private"), Integer(1), Array([1]), Object(a=1)]
+        for value in invalid_values:
+            for location in ("metadata", "arguments", "raw_data"):
+                row = copy.deepcopy(self.row)
+                if location == "metadata": row["reward_info"] = value
+                elif location == "arguments": row["messages"][2]["tool_calls"][0]["arguments"] = {"nested": value}
+                else: row["messages"][0]["raw_data"] = value
+                for operation in (adapt_episode, minimize_episode):
+                    with self.subTest(value=type(value).__name__, location=location, operation=operation.__name__):
+                        with self.assertRaises(AdapterError) as caught:
+                            operation(row)
+                        self.assertNotIn("private", str(caught.exception))
+
+    def test_shared_plain_json_values_are_valid_and_canonical_hash_is_unchanged(self):
+        shared = {"unicode": "é", "values": [None, True, False, 0, -1, 1.25]}
+        row = copy.deepcopy(self.row)
+        row["reward_info"] = {"one": shared, "two": shared}
+        expected = hashlib.sha256(json.dumps(row, sort_keys=True, separators=(",", ":"),
+                                            ensure_ascii=True, allow_nan=False).encode("utf-8")).hexdigest()
+        self.assertEqual(adapt_episode(row)["provenance"]["input_sha256"], expected)
+        self.assertEqual(minimize_episode(row), self.row)
+
+    def test_cyclic_and_deep_source_values_raise_payload_free_adapter_error(self):
+        cycle = []; cycle.append(cycle)
+        deep = None
+        for _ in range(2000): deep = [deep]
+        for value in (cycle, deep):
+            row = copy.deepcopy(self.row); row["reward_info"] = value
+            for operation in (adapt_episode, minimize_episode):
+                with self.assertRaises(AdapterError): operation(row)
+
     def test_bounded_reader_rejects_duplicate_keys_torn_json_and_invalid_utf8(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "episode.json"

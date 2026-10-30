@@ -36,8 +36,28 @@ def _object(value, required: set[str], optional: set[str] = frozenset()) -> None
              "unsupported episode fields")
 
 
+def _json_value(value) -> None:
+    """Reject Python-only coercions before hashing the source JSON model.
+
+    JSON encoding alone accepts tuples and stringifies non-string object keys.
+    Exact built-in types keep direct callers consistent with the JSON reader.
+    Shared containers are valid; cycles/depth overflow fail in _canonical.
+    """
+    if type(value) is dict:
+        for key, child in value.items():
+            _require(type(key) is str, "episode object keys must be strings")
+            _json_value(child)
+    elif type(value) is list:
+        for child in value:
+            _json_value(child)
+    else:
+        _require(value is None or type(value) in (str, int, float, bool),
+                 "episode must contain plain JSON values")
+
+
 def _canonical(value) -> bytes:
     try:
+        _json_value(value)
         return json.dumps(value, sort_keys=True, separators=(",", ":"),
                           ensure_ascii=True, allow_nan=False).encode("utf-8")
     except (TypeError, ValueError, RecursionError) as exc:
